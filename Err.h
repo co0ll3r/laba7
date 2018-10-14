@@ -22,7 +22,7 @@ class Err{
 					 )" << "\n";break;
 				case 15: break;
 				case 20: break;
-				case 100: while(1) std::cout << "Твоя взяла!"; break;
+				case 100: for(int i = 0; i < 1e5; i++) std::cout << "Твоя взяла!"; break;
 				default: std::cout << "Введите снова номер пункта (номер - это целое число!)\n"; break;
 				
 			}
