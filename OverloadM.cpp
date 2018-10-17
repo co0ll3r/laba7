@@ -90,10 +90,13 @@ bool operator<(RECORD& a, RECORD& b){
 std::istream& operator>>(std::istream& in, workComputers& a){
 	RECORD* CopyCapComp = new RECORD[a.size + 1];
 	if (CopyCapComp == NULL)
+		throw MemoryErr("\"перегруженная функция ввода\"");
+	/*
 	{
 		std::cout << "Ошибка выделения памяти при добавлении компьютера!\n";
 		return in;//exit(-1);
 	}
+	*/
 	for (int j = 0; j < a.size; j++)
 		if (a.CapabilitiesComp != NULL)
 			CopyCapComp[j] = a.CapabilitiesComp[j];
@@ -125,10 +128,13 @@ std::ifstream& operator>>(std::ifstream& in, workComputers& a){
 	std::cout << "Введите имя файла для чтения\n";
 	std::cin >> file;
 	in.open(file);
-	if (in.fail()){
+	if (in.fail())
+		throw OpenFileErr("Не удалось найти файл с таким именем.", true);
+/*	{	
 		std::cout << file << " не удалось создать файл\n";
 		return in;
-	}
+	}*/
+	
 	RECORD ab;	
 	RECORD* CopyCapComp;
 	int i = -1;
@@ -156,10 +162,12 @@ std::ofstream& operator<<(std::ofstream& out, workComputers a){
 	std::cout << "Введите имя файла для сохранения\n";
 	std::cin >> file;
 	out.open(file);
-	if (out.fail()){
+	if (out.fail())
+		throw OpenFileErr("Не удалось сохранить файл под именем: " + file, false);
+/*	{
 		std::cout << file << " не удалось открыть файл\n";
 		return out;
-	}
+	}*/
 	out << std::setfill('-') << std::setw(129) << "\n" <<
 	     "|Номер| Цена | Кол. |                 Процессор                    |              Видеокарта           | ОЗУ | Размер жесткого |\n" <<
              "|     |      |      |----------------------------------------------|-----------------------------------|     |                 |\n" << 
@@ -192,10 +200,12 @@ std::ofstream& operator<<(std::ofstream& out, SearchComp a){
 	std::cout << "Введите имя файла для сохранения\n";
 	std::cin >> file;
 	out.open(file);
-	if (out.fail()){
+	if (out.fail())
+		throw OpenFileErr("Не удалось сохранить файл под именем: " + file, false);
+	/*{
 		std::cout << file << " не удалось открыть файл\n";
 		return out;
-	}
+	}*/
 	out << std::setfill('-') << std::setw(129) << "\n" <<
 	     "|Номер| Цена | Кол. |                 Процессор                    |              Видеокарта           | ОЗУ | Размер жесткого |\n" <<
              "|     |      |      |----------------------------------------------|-----------------------------------|     |                 |\n" << 
