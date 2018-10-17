@@ -37,10 +37,10 @@ void GetMenu(Perechen& ExampleComputer, bool& exitFlag){
 		try{
 			std::cin >> SwitchChoose;
 			if (std::cin.fail())
-				throw Err("Обнаружена ошибка ввода! Возможно, вы ввели строковый символ.\n");
+				throw InputErr(" Вы ввели строковый символ (при выборе пункта).");
 		}
 		// Handle the error, that occurs when we input a char symbol
-		catch (Err &e){
+		catch (InputErr &e){
 			int i = 0;
 			while(std::cin.fail()){
 				e.outputErr();
@@ -53,61 +53,67 @@ void GetMenu(Perechen& ExampleComputer, bool& exitFlag){
 			showMenu();
 		}
 		std::cout << "\n";
-		switch(SwitchChoose){
-			case 1:  fin >> workComputer; break; //перегруженный ввод таблицы из файла
-			case 2:  fout << workComputer; break; //перегруженный вывод таблицы в файл
-			case 3:  std::cin >> workComputer; break; // перегруженное ввод записи в таблицу
-			case 4:  workComputer.Delete_comp(); break;
-//			case 5:  std::cout << (workComputers)ExampleComputer; break; // перегруженный вывод таблицы на экран
-			case 5:  std::cout << workComputer; break;			
-//			case 6:  ExampleComputer.workComputers::SortProcTypeAndClock(); break;
-			case 6:  fixSortProcTypeAndClock(workComputer); break;
-	//			 workComputer.SortProcTypeAndClock()
-			case 7:  workComputer.SortProcName(); break; 	
-			case 8:	 workComputer.SortPrice(); break;
-			case 9:  ExampleComputer.showFirstPerech(); break;
-			case 10: ExampleComputer.showSecondPerech(); break; 
-			case 11: ExampleComputer.showThirdPerech();break; 
-			case 12: makePerechen1(ExampleComputer, ExampleComputer); break; 
-			case 13: makePerechen2(ExampleComputer, ExampleComputer);break; 
-			case 14: makePerechen3(ExampleComputer, ExampleComputer);break; 
-			case 15: ExampleComputer.sortProcTypeFirstPerech(); break;
-			case 16: ExampleComputer.sortCountSecondPerech();break; 
-			case 17: ExampleComputer.sortVideoVolumeThirdPerech(); break; 
-			case 18: {
-					 std::cout << "1. Сохранить 1\n 2. Сохранить 2\n3. Сохранить 3\n";
-					 int j;
-					 std::cin >> j;
-					 switch(j){
-						 case 1: ExampleComputer.saveFirstPerech(); break;
-						 case 2: ExampleComputer.saveSecondPerech(); break;
-						 case 3: ExampleComputer.saveThirdPerech(); break;
-						 default: break;
+		try{
+			switch(SwitchChoose){
+				case 1:  fin >> workComputer; break; //перегруженный ввод таблицы из файла
+				case 2:  fout << workComputer; break; //перегруженный вывод таблицы в файл
+				case 3:  std::cin >> workComputer; break; // перегруженное ввод записи в таблицу
+				case 4:  workComputer.Delete_comp(); break;
+			      //case 5:  std::cout << (workComputers)ExampleComputer; break; // перегруженный вывод таблицы на экран
+				case 5:  std::cout << workComputer; break;			
+			      //case 6:  ExampleComputer.workComputers::SortProcTypeAndClock(); break;
+				case 6:  fixSortProcTypeAndClock(workComputer); break;
+			      //workComputer.SortProcTypeAndClock()
+				case 7:  workComputer.SortProcName(); break; 	
+				case 8:	 workComputer.SortPrice(); break;
+				case 9:  ExampleComputer.showFirstPerech(); break;
+				case 10: ExampleComputer.showSecondPerech(); break; 
+				case 11: ExampleComputer.showThirdPerech();break; 
+				case 12: makePerechen1(ExampleComputer, ExampleComputer); break; 
+				case 13: makePerechen2(ExampleComputer, ExampleComputer);break; 
+				case 14: makePerechen3(ExampleComputer, ExampleComputer);break; 
+				case 15: ExampleComputer.sortProcTypeFirstPerech(); break;
+				case 16: ExampleComputer.sortCountSecondPerech();break; 
+				case 17: ExampleComputer.sortVideoVolumeThirdPerech(); break; 
+				case 18: {
+						 std::cout << "1. Сохранить 1\n 2. Сохранить 2\n3. Сохранить 3\n";
+						 int j;
+						 std::cin >> j;
+						 switch(j){
+							 case 1: ExampleComputer.saveFirstPerech(); break;
+							 case 2: ExampleComputer.saveSecondPerech(); break;
+							 case 3: ExampleComputer.saveThirdPerech(); break;
+							 default: break;
+						 }
+						 break;
 					 }
-					 break;
-				 }
-			case 19: searchComputer.SearchPrice(); break;
-			case 20: searchComputer.SearchHddVolume(); break;
-			case 21: searchComputer.SearchBrandTypeRamETC(); break;
-			case 22:{
-					std::cout << "1.Сорт по Типу процессора\n2. Сорт по объему ОЗУ\n";
-					int c;
-					std::cin >> c;
-					switch(c){
-						case 1: searchComputer.SortProcTypeAndClock(); break;
-						case 2: searchComputer.SortRAM(); break;
-					}
-				}; break;
-			case 23: fout << searchComputer; break; // перегруженный вывод результатов поиска в файл
-			case 24: workComputer.workComputers::testCopyConstructor(); break;
-			case 25: workComputer.workComputers::testCopyOperator(); break;
-			case 26: ExampleComputer.SearchComp::testCopyConstructor(); break;
-			case 27: ExampleComputer.SearchComp::testCopyOperator(); break;
-			case 28: ExampleComputer.Perechen::testCopyConstructor(); break;
-			case 29: ExampleComputer.Perechen::testCopyOperator(); break;
-			case 30: std::cout << (SearchComp) ExampleComputer; break; // перегруженный вывод результатов поиска
-			case 31: std::cout << ExampleComputer; break; // перегруженный вывод всех перечней
-			default: exitFlag =false; break;
+				case 19: searchComputer.SearchPrice(); break;
+				case 20: searchComputer.SearchHddVolume(); break;
+				case 21: searchComputer.SearchBrandTypeRamETC(); break;
+				case 22:{
+						std::cout << "1.Сорт по Типу процессора\n2. Сорт по объему ОЗУ\n";
+						int c;
+						std::cin >> c;
+						switch(c){
+							case 1: searchComputer.SortProcTypeAndClock(); break;
+							case 2: searchComputer.SortRAM(); break;
+						}
+					}; break;
+				case 23: fout << searchComputer; break; // перегруженный вывод результатов поиска в файл
+				case 24: workComputer.workComputers::testCopyConstructor(); break;
+				case 25: workComputer.workComputers::testCopyOperator(); break;
+				case 26: ExampleComputer.SearchComp::testCopyConstructor(); break;
+				case 27: ExampleComputer.SearchComp::testCopyOperator(); break;
+				case 28: ExampleComputer.Perechen::testCopyConstructor(); break;
+				case 29: ExampleComputer.Perechen::testCopyOperator(); break;
+				case 30: std::cout << (SearchComp) ExampleComputer; break; // перегруженный вывод результатов поиска
+				case 31: std::cout << ExampleComputer; break; // перегруженный вывод всех перечней
+				default: exitFlag =false; break;
+			}
+		} catch (OpenFileErr& e) {
+			e.outputErr();
+		} catch (MemoryErr& e) {
+			e.outputErr();
 		}
 		std::cout << "\nВведите 1 для повторного выбора пункта меню(без очистки экрана): ";
 		std::cin >> SwitchChoose;  
