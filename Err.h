@@ -1,11 +1,26 @@
 #include "CompHeader.h"
+
 class Err{
 	protected:
-		std::string message;
+	std::string message;
 	public:
-		Err(std::string inp) :message(inp) {} 
+//	Err() : message(NULL) {} 
+	Err(std::string inp) : message(inp) {}
+//	virtual void meth() = 0;
+	virtual void outputErr() = 0;
+	/*{
+		std::cout << message << std::endl;
+	}*/
+};
+
+class InputErr : Err{
+//	protected:
+//		std::string message;
+	public:
+		InputErr(std::string inp) : Err(inp) {} 
+		
 		void outputErr(){
-			std::cout << message << std::endl;
+			std::cout << "Возникла ошибка ввода! " << message << std::endl;
 		}
 
 		void inputAgainMessage(int i){
@@ -27,5 +42,22 @@ class Err{
 				
 			}
 
+		}
+};
+
+class MemoryErr : Err{
+	public:
+		MemoryErr(std::string inp) : Err(inp) {}
+		void outputErr() {
+			std::cout << "Возникла ошибка выделения памяти! " << message << std::endl;
+		}
+};
+
+class OpenFileErr : Err{
+	private: bool actionOpen;
+	public:
+		OpenFileErr(std::string inp, bool a) : Err(inp), actionOpen(a) {}
+		void outputErr() {
+			std::cout << "Возникла ошибка при " << (actionOpen? "открытии " : "закрытии ") << "файла! " << message << std::endl;
 		}
 };
