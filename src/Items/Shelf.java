@@ -9,7 +9,7 @@ public class Shelf extends Container{
     // Migrate to the abstract class
     @Override
     void calculateWeight() {
-        int calcWeight = 0;
+        double calcWeight = 0;
         for(OneItem a : getItemContainer()){
             calcWeight += a.getWeight();
         }
@@ -23,10 +23,10 @@ public class Shelf extends Container{
 
     // Remove index from the signature
     @Override
-    public void removeItem(int index) {
+    public void removeItem() {
      //   getItemContainer().remove(index);
         getItemContainer().remove(getCurrentSize() - 1);
-        calculateWeight();
+        removeItem();
     }
 
     @Override
