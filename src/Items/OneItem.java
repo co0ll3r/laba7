@@ -4,18 +4,14 @@ import java.util.*;
 
 public class OneItem {
     private String name;
-    private int weight;
+    private double weight;
     private Set<String> properties;
     private boolean isAdded;
 
-    // ????
-    OneItem() {
-
-    }
-
-    // make weight = something
+    // make weight = something or comment
     public OneItem(String name, String... properties) {
         this.name = name;
+        weight = 0;
         //or null?
         //weight = 1;
         // check this if statement
@@ -46,7 +42,7 @@ public class OneItem {
         return name;
     }
 
-    int getWeight() {
+    double getWeight() {
         return weight;
     }
 
@@ -59,7 +55,7 @@ public class OneItem {
         return isAdded;
     }
 
-    void setWeight(int weight) {
+    void setWeight(double weight) {
         this.weight = weight;
     }
 
@@ -146,25 +142,18 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
 
         currentSize++;
         itemContainer.add(newItem);
-        /*
-        if (currentSize != 1) {
-            OneItem[] copyItemContainer = itemContainer.clone();
-            itemContainer = new OneItem[currentSize];
-            if (currentSize - 1 >= 0)
-                System.arraycopy(copyItemContainer, 0, itemContainer, 0, currentSize - 1);
-        } else {
-            itemContainer = new OneItem[currentSize];
-        }
-        itemContainer.set(currentSize - 1, newItem);
-        newItem.itemAdded();
-        */
     }
 
     abstract void calculateWeight();
 
     abstract OneItem takeItem();
 
-    abstract void removeItem(int index);
+    void removeItem() throws ItemIsEmptyException {
+        if (getCurrentSize() == 0)
+            throw new ItemIsEmptyException();
+        currentSize--;
+        calculateWeight();
+    }
 
     abstract void pushItem(OneItem newItem);
 
