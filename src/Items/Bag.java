@@ -17,7 +17,7 @@ public class Bag extends Container {
     // TOO slow, any another solutions?
     @Override
     public void calculateWeight() {
-        int calcWeight = 0;
+        double calcWeight = 0;
         for(OneItem a : getItemContainer()){
             calcWeight += a.getWeight();
         }
@@ -42,9 +42,11 @@ public class Bag extends Container {
     }
 
     @Override
-    void removeItem(int index) {
-        getItemContainer().remove(index);
-        calculateWeight();
+    void removeItem() throws ItemIsEmptyException{
+        if (getCurrentSize() == 0)
+            throw new ItemIsEmptyException();
+        getItemContainer().remove(new Random().nextInt(getCurrentSize()));
+        super.removeItem();
     }
 
     @Override
