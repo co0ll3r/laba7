@@ -1,6 +1,9 @@
 package Items;
 
 public class Shelf extends Container{
+    public Shelf(String name, String... properties) {
+        super(name, properties);
+    }
 
     public Shelf(String name, int maxItems, int maxWeight, String... properties) {
         super(name, properties);
@@ -22,10 +25,11 @@ public class Shelf extends Container{
     }
 
     @Override
-    public void removeItem() {
+    public void removeItem() throws ItemIsEmptyException {
      //   getItemContainer().remove(index);
+        super.removeItem();
         getItemContainer().remove(getCurrentSize() - 1);
-        removeItem();
+        calculateWeight();
     }
 
     @Override

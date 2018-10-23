@@ -21,7 +21,7 @@ public class OneItem {
         }
     }
 
-    public OneItem(String name, int weight, String... properties) {
+    public OneItem(String name, double weight, String... properties) {
         this.name = name;
         this.weight = weight;
         if (properties.length > 0) {
@@ -124,8 +124,8 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
             throw new ItemAlreadyPlacedException();
         if (currentSize + 1 > maxItems)
             throw new ItemStoreException(newItem, this.getName() + " overflow! You're trying to put " + (currentSize + 1) +
-                    " items in" + this.getName() + ", when the maximum is " + maxItems + ".");
-        if (getWeight() + newItem.getWeight() > maxWeight)
+                    " items in " + this.getName() + ", when the maximum is " + maxItems + ".");
+        if (this.getWeight() + newItem.getWeight() > maxWeight)
             throw new ItemStoreException(newItem, this.getName() + " overweight! The weight would be " + (getWeight() +
                     newItem.getWeight()) + ", when the maximum is " + maxWeight + ".");
 
@@ -137,7 +137,6 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
         if (getCurrentSize() == 0)
             throw new ItemIsEmptyException();
         currentSize--;
-        calculateWeight();
     }
 
     abstract void calculateWeight();
