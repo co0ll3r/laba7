@@ -56,12 +56,19 @@ class BagTest {
 
     @org.junit.jupiter.api.Test
     void pushItem() {
+        /*        } catch (ItemAlreadyPlacedException e) {
+            System.out.println("Error this item already added!");
+            // System.out.println(Arrays.toString(e.getStackTrace()));
+        } catch (ItemStoreException a) {
+            //   System.out.println("Store exception!");
+            System.out.println(a.getMessage());
+        }*/
     }
 
     @org.junit.jupiter.api.Test
-    public void testtoString() {
+    void testToString() {
         OneItem a = new OneItem("Chair", 4, "comfortable", "low");
         System.out.println(a.toString());
-        assertEquals("AA", a.toString());
+        assertEquals("Name: Chair; Weight: 4,00; Not added; properties: [low, comfortable].", a.toString());
     }
 }
