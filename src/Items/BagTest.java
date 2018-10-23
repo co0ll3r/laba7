@@ -8,9 +8,13 @@ class BagTest {
     void calculateWeight() {
         Bag bag1 = new Bag("bag1", "white");
         OneItem item1 = new OneItem("cat", 7, "black", "fluffy", "cute");
-        bag1.pushItem(item1);
-        bag1.pushItem(new OneItem("brick", 5, "red"));
-        bag1.pushItem(new OneItem("brick", 5, "grey"));
+        try {
+            bag1.pushItem(item1);
+            bag1.pushItem(new OneItem("brick", 5, "red"));
+            bag1.pushItem(new OneItem("brick", 5, "grey"));
+        } catch (ItemAlreadyPlacedException | ItemStoreException a) {
+            System.err.println(a.getMessage());
+        }
         assertEquals(12, bag1.getWeight());
     }
 
@@ -18,9 +22,14 @@ class BagTest {
     void takeItem() {
         Bag bag1 = new Bag("bag1", "white");
         OneItem item1 = new OneItem("cat", 7, "black", "fluffy", "cute");
-        bag1.pushItem(item1);
-        bag1.pushItem(new OneItem("brick", 5, "red"));
-        bag1.pushItem(new OneItem("brick", 1, "grey"));
+        try {
+            bag1.pushItem(item1);
+            bag1.pushItem(new OneItem("ball", 5, "red"));
+            bag1.pushItem(new OneItem("book", 1, "grey"));
+        } catch (ItemAlreadyPlacedException | ItemStoreException a) {
+            System.err.println(a.getMessage());
+        }
+
         bag1.takeItem();
         bag1.takeItem();
         try {
@@ -39,9 +48,13 @@ class BagTest {
     void removeItem() {
         Bag bag1 = new Bag("bag1", "white");
         OneItem item1 = new OneItem("cat", 7, "black", "fluffy", "cute");
-        bag1.pushItem(item1);
-        bag1.pushItem(new OneItem("brick", 5, "red"));
-        bag1.pushItem(new OneItem("brick", 1, "grey"));
+        try {
+            bag1.pushItem(item1);
+            bag1.pushItem(new OneItem("bar", 5, "silver"));
+            bag1.pushItem(new OneItem("vase", 1, "transparent"));
+        } catch (ItemAlreadyPlacedException | ItemStoreException a) {
+            System.err.println(a.getMessage());
+        }
         try {
             bag1.removeItem();
             bag1.removeItem();
