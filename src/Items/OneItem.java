@@ -75,15 +75,14 @@ public class OneItem {
         }
 
 
-
         System.out.print("; ");
     }
 
-    // make with String.format()
+    // properties are shown with brackets [], fix it?
     @Override
     public String toString() {
-        return String.format("Name: %s, Weight: %d" + (isAdded?"Already added":"Not added")
-                             + "Properties: %s", name, weight, properties);
+        return String.format("Name: %s; Weight: %.2f; " + (isAdded ? "Already added" : "Not added") +
+                "; properties: %s.", name, weight, properties.toString());
     }
 }
 
@@ -119,34 +118,20 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
     }
 
     // outOfBoundException??
-    void addItem(OneItem newItem) {
+    void addItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
         // make own Exception class!
-        try {
-            if (newItem.isAdded())
-                throw new ItemAlreadyPlacedException();
-            if (currentSize + 1 > maxItems)
-                throw new ItemStoreException(newItem, this.getName() + " overflow! You're trying to put " + (currentSize + 1) +
-                        " items in" + this.getName() + ", when the maximum is " + maxItems + ".");
-            if (getWeight() + newItem.getWeight() > maxWeight)
-                throw new ItemStoreException(newItem, this.getName() + " overweight! The weight would be " + (getWeight() +
-                        newItem.getWeight()) + ", when the maximum is " + maxWeight + ".");
-        } catch (ItemAlreadyPlacedException e) {
-            System.out.println("Error this item already added!");
-            return;
-            // System.out.println(Arrays.toString(e.getStackTrace()));
-        } catch (ItemStoreException a){
-         //   System.out.println("Store exception!");
-            System.out.println(a.getMessage());
-            return;
-        }
+        if (newItem.isAdded())
+            throw new ItemAlreadyPlacedException();
+        if (currentSize + 1 > maxItems)
+            throw new ItemStoreException(newItem, this.getName() + " overflow! You're trying to put " + (currentSize + 1) +
+                    " items in" + this.getName() + ", when the maximum is " + maxItems + ".");
+        if (getWeight() + newItem.getWeight() > maxWeight)
+            throw new ItemStoreException(newItem, this.getName() + " overweight! The weight would be " + (getWeight() +
+                    newItem.getWeight()) + ", when the maximum is " + maxWeight + ".");
 
         currentSize++;
         itemContainer.add(newItem);
     }
-
-    abstract void calculateWeight();
-
-    abstract OneItem takeItem();
 
     void removeItem() throws ItemIsEmptyException {
         if (getCurrentSize() == 0)
@@ -155,7 +140,11 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
         calculateWeight();
     }
 
-    abstract void pushItem(OneItem newItem);
+    abstract void calculateWeight();
+
+    abstract OneItem takeItem();
+
+    abstract void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException;
 
     @Override
     public void getInfo() {

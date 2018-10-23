@@ -21,7 +21,6 @@ public class Shelf extends Container{
         return getItemContainer().get(getCurrentSize() - 1);
     }
 
-    // Remove index from the signature
     @Override
     public void removeItem() {
      //   getItemContainer().remove(index);
@@ -30,7 +29,7 @@ public class Shelf extends Container{
     }
 
     @Override
-    public void pushItem(OneItem newItem) {
+    public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
         addItem(newItem);
       //  getItemContainer().add(newItem);
         calculateWeight();
