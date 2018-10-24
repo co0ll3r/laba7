@@ -52,11 +52,21 @@ class BagTest {
         try {
             bag1.pushItem(uniqueItem);
             bag1.pushItem(item2);
-            bag1.pushItem(item3);
-            bag2.pushItem(item4);
+//            bag1.pushItem(item3);
+            //           bag2.pushItem(item4);
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
         }
+        assertThrows(ItemStoreException.class, () -> {
+            bag1.pushItem(item4);
+        });
+        assertThrows(ItemAlreadyPlacedException.class, () -> {
+            bag2.pushItem(uniqueItem);
+        });
+        assertThrows(ItemAlreadyPlacedException.class, () -> {
+            bag2.pushItem(item2);
+        });
+        /*
         bag2.getInfo();
         // one item in container
         try {
@@ -84,6 +94,7 @@ class BagTest {
         bag2.getInfo();
         assertEquals(1, bag1.getCurrentSize());
         assertEquals(1, bag2.getCurrentSize());
+        */
     }
 
     @org.junit.jupiter.api.Test
