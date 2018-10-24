@@ -53,7 +53,7 @@ class BagTest {
             bag1.pushItem(uniqueItem);
             bag1.pushItem(item2);
 //            bag1.pushItem(item3);
-            //           bag2.pushItem(item4);
+          //  bag2.pushItem(new OneItem("coin", 0.004, "head", "tails"));
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
         }
@@ -66,6 +66,9 @@ class BagTest {
         assertThrows(ItemAlreadyPlacedException.class, () -> {
             bag2.pushItem(item2);
         });
+
+        bag1.getInfo();
+        bag2.getInfo();
         /*
         bag2.getInfo();
         // one item in container

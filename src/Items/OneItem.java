@@ -62,18 +62,19 @@ public class OneItem {
     // what will happen if the fields is empty?
     public void getInfo() {
         System.out.print("Name: " + getName() + ", ");
-        if (weight != 0) {
-            System.out.print("Weight: " + getWeight());
+
+        if (weight > 0) { // Is it works for double?
+            System.out.print("Weight: " + getWeight() + ", ");
         }
+
         if (properties != null) {
-            System.out.print(", Properties: { ");
+            System.out.print("Properties: { ");
             for (String e :
                     getProperties()) {
                 System.out.print(e + " ");
             }
             System.out.print("}");
         }
-
 
         System.out.print("; ");
     }
