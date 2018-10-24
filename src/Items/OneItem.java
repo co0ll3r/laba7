@@ -8,6 +8,7 @@ public class OneItem {
     private Set<String> properties;
     private boolean isAdded;
 
+    /*
     // make weight = something or comment
     public OneItem(String name, String... properties) {
         this.name = name;
@@ -20,6 +21,7 @@ public class OneItem {
             this.properties.addAll(Arrays.asList(properties));
         }
     }
+    */
 
     public OneItem(String name, double weight, String... properties) {
         this.name = name;
@@ -46,6 +48,10 @@ public class OneItem {
         return weight;
     }
 
+    void setWeight(double weight) {
+        this.weight = weight;
+    }
+
     Set<String> getProperties() {
         return properties;
     }
@@ -53,10 +59,6 @@ public class OneItem {
     // any alternatives?
     boolean isAdded() {
         return isAdded;
-    }
-
-    void setWeight(double weight) {
-        this.weight = weight;
     }
 
     // what will happen if the fields is empty?
@@ -93,19 +95,19 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
     private int maxItems = 10;
     private int maxWeight = 15;
 
-    Container(String name, String... properties) {
-        super(name, properties);
+    Container(String name, double weight, String... properties) {
+        super(name, weight, properties);
         itemContainer = new ArrayList<>();
     }
 
-    Container(String name, int maxItems, int maxWeight, String... properties) {
-        this(name, properties);// this();// c!!!
+    Container(String name, double weight, int maxItems, int maxWeight, String... properties) {
+        this(name, weight, properties);// this();// c!!!
         this.maxItems = maxItems;
         this.maxWeight = maxWeight;
     }
 
-    Container(String name, ArrayList<OneItem> newContainer, String... properties) {
-        super(name, properties);
+    Container(String name, double weight, ArrayList<OneItem> newContainer, String... properties) {
+        super(name, weight, properties);
         this.itemContainer = newContainer;
         this.currentSize = itemContainer.size();
     }
@@ -118,9 +120,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
         return currentSize;
     }
 
-    // outOfBoundException??
     void addItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
-        // make own Exception class!
         if (newItem.isAdded())
             throw new ItemAlreadyPlacedException();
         if (currentSize + 1 > maxItems)
@@ -141,6 +141,31 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
         currentSize--;
     }
 
+    // instead of calculating weight of all the container
+    void changeWeight(double value){
+        setWeight(getWeight() + value);
+    }
+
+    // how to make a required null handler?
+    /**
+     * @param name
+     * @return OneItem or NULL if the container doesn't have an item with such the name
+     */
+    public OneItem findByName(String name) throws ItemIsEmptyException{
+        // or return null is better?
+        if (getCurrentSize() == 0)
+            throw new ItemIsEmptyException();
+        for (OneItem a :
+                getItemContainer()) {
+            if (name.equals(a.getName())){
+                System.out.println("The item has found");
+                return a;
+            }
+        };
+        System.out.println("The item hasn't found");
+        return null;
+    }
+
     abstract void calculateWeight();
 
     abstract OneItem takeItem();
@@ -150,8 +175,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
     @Override
     public void getInfo() {
         super.getInfo();
-//        System.out.println("Amount of items in container is " + currentSize);
-        System.out.printf("items: " + getCurrentSize() + "\n\t");
+        System.out.print("items: " + getCurrentSize() + "\n\t");
         for (OneItem a :
                 itemContainer) {
             a.getInfo();
@@ -162,7 +186,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
 
     @Override
     public Iterator<OneItem> iterator() {
-        Iterator<OneItem> it = new Iterator<OneItem>() {
+        return new Iterator<OneItem>() {
             private int currentIndex = 0;
 
             @Override
@@ -175,7 +199,6 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
                 return itemContainer.get(currentIndex++);
             }
         };
-        return it;
     }
 
 }

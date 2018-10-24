@@ -1,12 +1,12 @@
 package Items;
 
 public class Shelf extends Container{
-    public Shelf(String name, String... properties) {
-        super(name, properties);
+    public Shelf(String name, double weight, String... properties) {
+        super(name, weight, properties);
     }
 
-    public Shelf(String name, int maxItems, int maxWeight, String... properties) {
-        super(name, properties);
+    public Shelf(String name, double weight, int maxItems, int maxWeight, String... properties) {
+        super(name, weight, properties);
     }
 
     // Migrate to the abstract class
@@ -35,7 +35,8 @@ public class Shelf extends Container{
     @Override
     public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
         addItem(newItem);
+        changeWeight(newItem.getWeight());
       //  getItemContainer().add(newItem);
-        calculateWeight();
+//        calculateWeight();
     }
 }

@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Bag extends Container {
-    public Bag(String name, String... properties) {
-        super(name, properties);
+    public Bag(String name, double weight, String... properties) {
+        super(name, weight, properties);
     }
 
-    public Bag(String name, int maxItems, int maxWeight, String... properties) {
-        super(name, maxItems, maxWeight, properties);
+    public Bag(String name, double weight, int maxItems, int maxWeight, String... properties) {
+        super(name, weight, maxItems, maxWeight, properties);
     }
 
-    public Bag(String name, ArrayList<OneItem> newContainer, String properties) {
-        super(name, newContainer, properties);
+    public Bag(String name, double weight, ArrayList<OneItem> newContainer, String properties) {
+        super(name, weight, newContainer, properties);
     }
 
     // TOO slow, any another solutions?
@@ -52,14 +52,17 @@ public class Bag extends Container {
         itemForDelete.itemRemoved();
         System.out.println(itemForDelete + " has deleted!"); // maybe doesn't need
         super.removeItem();
+        System.out.println(-getItemContainer().get(index).getWeight());
+        changeWeight(-getItemContainer().get(index).getWeight());
         getItemContainer().remove(index);
-        calculateWeight();
+//        calculateWeight();
     }
 
     @Override
     public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
         addItem(newItem);
-        calculateWeight();
+        changeWeight(newItem.getWeight());
+//        calculateWeight();
     }
 }
 

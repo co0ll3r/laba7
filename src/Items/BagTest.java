@@ -5,8 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class BagTest {
 
     @org.junit.jupiter.api.Test
+    void constructorsTest() {
+
+    }
+
+    @org.junit.jupiter.api.Test
     void calculateWeight() {
-        Bag bag1 = new Bag("bag1", "white");
+        Bag bag1 = new Bag("bag1", 0.5, "white");
         OneItem item1 = new OneItem("cat", 7, "black", "fluffy", "cute");
         try {
             bag1.pushItem(item1);
@@ -15,19 +20,19 @@ class BagTest {
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
         }
-        assertEquals(12, bag1.getWeight());
+        assertEquals(12.5, bag1.getWeight());
         try {
             bag1.removeItem();
             bag1.removeItem();
         } catch (ItemIsEmptyException e) {
             e.printStackTrace();
         }
-        assertEquals(0, bag1.getWeight());
+        assertEquals(0.5, bag1.getWeight());
     }
 
     @org.junit.jupiter.api.Test
     void takeItem() {
-        Bag bag1 = new Bag("bag1", "white");
+        Bag bag1 = new Bag("bag1", 1, "white");
         OneItem item1 = new OneItem("cat", 7, "black", "fluffy", "cute");
         try {
             bag1.pushItem(item1);
@@ -53,8 +58,8 @@ class BagTest {
         OneItem item2 = new OneItem("handle", 0.03, "oiled");
         OneItem item3 = new OneItem("desk", 10, "brown");
         OneItem item4 = new OneItem("fork", 0.01, "copper");
-        Bag bag1 = new Bag("bag1", 2, 10);
-        Bag bag2 = new Bag("bag2", 2, 5, "weak");
+        Bag bag1 = new Bag("bag1", 1, 2, 10);
+        Bag bag2 = new Bag("bag2", 0.5, 2, 5, "weak");
 
         try {
             bag1.pushItem(uniqueItem);
@@ -85,7 +90,7 @@ class BagTest {
 
     @org.junit.jupiter.api.Test
     void pushAndRemoveItem() {
-        Bag bag1 = new Bag("bag1", "white");
+        Bag bag1 = new Bag("bag1", 1, "white");
         OneItem item1 = new OneItem("cat", 7, "black", "fluffy", "cute");
         try {
             bag1.pushItem(item1);
@@ -115,5 +120,25 @@ class BagTest {
         OneItem a = new OneItem("Chair", 4, "comfortable", "low");
         System.out.println(a.toString());
         assertEquals("Name: Chair; Weight: 4,00; Not added; properties: [low, comfortable].", a.toString());
+    }
+
+    @org.junit.jupiter.api.Test
+    void iteratorTest() {
+
+    }
+    @org.junit.jupiter.api.Test
+    void findTest() {
+        Bag bag = new Bag("bag", 0.01, 7, 15, "black");
+        OneItem item1 = new OneItem("potato", 3, "fresh");
+        OneItem item2 = new OneItem("milk", 1, "cheap");
+        OneItem item3 = new OneItem("bread", 0.5, "warm");
+        try{
+            bag.pushItem(item1);
+            bag.pushItem(item2);
+            bag.pushItem(item3);
+            bag.findByName("sadf").getInfo();
+        } catch (ItemAlreadyPlacedException | ItemStoreException | ItemIsEmptyException e) {
+            e.printStackTrace();
+        }
     }
 }

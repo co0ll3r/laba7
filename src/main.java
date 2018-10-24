@@ -5,7 +5,7 @@ import java.util.HashSet;
 public class main {
     public static void main(String[] args) {
         OneItem abc = new OneItem("toy", 2, "red", "wide", "smart");
-        Bag bag1 = new Bag("bag", "grey", "doted");
+        Bag bag1 = new Bag("bag", 0.5, "grey", "doted");
         try {
             bag1.pushItem(abc);
             bag1.pushItem(new OneItem("cat", 5, "fluffy"));
@@ -20,11 +20,11 @@ public class main {
            a.getInfo();
         }*/
 
-            Bag bag2 = new Bag("bag");
+            Bag bag2 = new Bag("bag", 1);
             bag1.pushItem(abc);
             bag2.getInfo();
 
-            Shelf shelf1 = new Shelf("shelf", 5, 35, "brown", "wooden");
+            Shelf shelf1 = new Shelf("shelf", 1, 5, 35, "brown", "wooden");
 
             shelf1.pushItem(abc);
             shelf1.pushItem(new OneItem("brick", 5, "flat", "fusion"));
