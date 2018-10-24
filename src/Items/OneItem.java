@@ -142,26 +142,48 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
     }
 
     // instead of calculating weight of all the container
-    void changeWeight(double value){
+    void changeWeight(double value) {
         setWeight(getWeight() + value);
     }
 
-    // how to make a required null handler?
     /**
+     * Polite version of findByName without exceptions
+     * @param name
+     * @return true if the container has the equal name, otherwise return false, even if the container is empty
+     */
+    public boolean containItem(String name) {
+        if (getCurrentSize() == 0)
+            return false;
+        for (OneItem a :
+                getItemContainer()) {
+            if (name.equals(a.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // how to make a required null handler?
+
+    /**
+     * Use
+     *
      * @param name
      * @return OneItem or NULL if the container doesn't have an item with such the name
      */
-    public OneItem findByName(String name) throws ItemIsEmptyException{
+    public OneItem findByName(String name) throws ItemIsEmptyException {
         // or return null is better?
         if (getCurrentSize() == 0)
             throw new ItemIsEmptyException();
         for (OneItem a :
                 getItemContainer()) {
-            if (name.equals(a.getName())){
+            //equalsIgnoreCase - alternative
+            if (name.equals(a.getName())) {
                 System.out.println("The item has found");
                 return a;
             }
-        };
+        }
+        ;
         System.out.println("The item hasn't found");
         return null;
     }
@@ -191,7 +213,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
 
             @Override
             public boolean hasNext() {
-                return currentIndex < currentSize - 1 && itemContainer.get(currentIndex) != null; // currentSize - 1?
+                return currentIndex < currentSize && itemContainer.get(currentIndex) != null; // currentSize - 1?
             }
 
             @Override

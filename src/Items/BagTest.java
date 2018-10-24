@@ -123,22 +123,30 @@ class BagTest {
     }
 
     @org.junit.jupiter.api.Test
-    void iteratorTest() {
-
-    }
-    @org.junit.jupiter.api.Test
-    void findTest() {
+    void findAndIteratorTest() {
         Bag bag = new Bag("bag", 0.01, 7, 15, "black");
         OneItem item1 = new OneItem("potato", 3, "fresh");
         OneItem item2 = new OneItem("milk", 1, "cheap");
         OneItem item3 = new OneItem("bread", 0.5, "warm");
-        try{
+        try {
             bag.pushItem(item1);
             bag.pushItem(item2);
             bag.pushItem(item3);
-            bag.findByName("sadf").getInfo();
+            // double search!! slow?
+            if (bag.containItem("sad"))
+                bag.findByName("sad").getInfo();
+            if (bag.containItem("potato"))
+                bag.findByName("potato").getInfo();
         } catch (ItemAlreadyPlacedException | ItemStoreException | ItemIsEmptyException e) {
             e.printStackTrace();
+        }
+
+        // Iterator test!
+        Bag bag2 = new Bag("bag", 0.01, 3, 5);
+        System.out.println();
+        for (OneItem a :
+                bag) {
+            a.getInfo();
         }
     }
 }
