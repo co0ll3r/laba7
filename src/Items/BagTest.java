@@ -16,6 +16,13 @@ class BagTest {
             System.err.println(a.getMessage());
         }
         assertEquals(12, bag1.getWeight());
+        try {
+            bag1.removeItem();
+            bag1.removeItem();
+        } catch (ItemIsEmptyException e) {
+            e.printStackTrace();
+        }
+        assertEquals(0, bag1.getWeight());
     }
 
     @org.junit.jupiter.api.Test
@@ -43,65 +50,41 @@ class BagTest {
     @org.junit.jupiter.api.Test
     void TestExceptions() {
         OneItem uniqueItem = new OneItem("key", 0.05, "rare", "golden");
-        OneItem item2 = new OneItem("handle", 0.03, "usuall");
+        OneItem item2 = new OneItem("handle", 0.03, "oiled");
         OneItem item3 = new OneItem("desk", 10, "brown");
         OneItem item4 = new OneItem("fork", 0.01, "copper");
         Bag bag1 = new Bag("bag1", 2, 10);
         Bag bag2 = new Bag("bag2", 2, 5, "weak");
-        // maxItems exception
+
         try {
             bag1.pushItem(uniqueItem);
             bag1.pushItem(item2);
-//            bag1.pushItem(item3);
-          //  bag2.pushItem(new OneItem("coin", 0.004, "head", "tails"));
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
         }
+
+        // difference?
+        assertThrows(ItemStoreException.class, () -> bag1.pushItem(item4));
+        assertThrows(ItemAlreadyPlacedException.class, () -> bag2.pushItem(uniqueItem));
+        assertThrows(ItemAlreadyPlacedException.class, () -> bag2.pushItem(item2));
         assertThrows(ItemStoreException.class, () -> {
-            bag1.pushItem(item4);
+            bag2.pushItem(item3);
         });
-        assertThrows(ItemAlreadyPlacedException.class, () -> {
-            bag2.pushItem(uniqueItem);
-        });
-        assertThrows(ItemAlreadyPlacedException.class, () -> {
-            bag2.pushItem(item2);
-        });
+
+        try {
+            bag2.removeItem();
+        } catch (ItemIsEmptyException a) {
+            System.err.println(a.getMessage());
+        }
+
+        assertThrows(ItemIsEmptyException.class, bag2::removeItem);
 
         bag1.getInfo();
         bag2.getInfo();
-        /*
-        bag2.getInfo();
-        // one item in container
-        try {
-            bag1.removeItem();
-            bag2.addItem(uniqueItem);
-            bag2.addItem(item2);
-        } catch (ItemAlreadyPlacedException | ItemStoreException | ItemIsEmptyException a) {
-            System.err.println(a.getMessage());
-        }
-        bag1.getInfo();
-        bag2.getInfo();
-        try {
-            bag2.addItem(item2);
-        } catch (ItemAlreadyPlacedException | ItemStoreException a) {
-            System.err.println(a.getMessage());
-        }
-       // assertThrows();
-        // overweight
-        try {
-            bag2.addItem(item3);
-        } catch (ItemAlreadyPlacedException | ItemStoreException a) {
-            System.err.println(a.getMessage());
-        }
-        bag1.getInfo();
-        bag2.getInfo();
-        assertEquals(1, bag1.getCurrentSize());
-        assertEquals(1, bag2.getCurrentSize());
-        */
     }
 
     @org.junit.jupiter.api.Test
-    void removeItem() {
+    void pushAndRemoveItem() {
         Bag bag1 = new Bag("bag1", "white");
         OneItem item1 = new OneItem("cat", 7, "black", "fluffy", "cute");
         try {
@@ -125,17 +108,6 @@ class BagTest {
             System.err.println(a.getMessage());
         }
         assertEquals(0, bag1.getCurrentSize());
-    }
-
-    @org.junit.jupiter.api.Test
-    void pushItem() {
-        /*        } catch (ItemAlreadyPlacedException e) {
-            System.out.println("Error this item already added!");
-            // System.out.println(Arrays.toString(e.getStackTrace()));
-        } catch (ItemStoreException a) {
-            //   System.out.println("Store exception!");
-            System.out.println(a.getMessage());
-        }*/
     }
 
     @org.junit.jupiter.api.Test
