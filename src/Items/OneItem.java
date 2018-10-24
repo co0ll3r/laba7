@@ -129,6 +129,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
             throw new ItemStoreException(newItem, this.getName() + " overweight! The weight would be " + (getWeight() +
                     newItem.getWeight()) + ", when the maximum is " + maxWeight + ".");
 
+        newItem.itemAdded();
         currentSize++;
         itemContainer.add(newItem);
     }

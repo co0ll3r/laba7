@@ -48,7 +48,9 @@ public class Bag extends Container {
         if (getCurrentSize() == 0)
             throw new ItemIsEmptyException();
         int index = new Random().nextInt(getCurrentSize());
-        System.out.println(getItemContainer().get(index) + " has deleted!"); // maybe doesn't need
+        OneItem itemForDelete = getItemContainer().get(index);
+        itemForDelete.itemRemoved();
+        System.out.println(itemForDelete + " has deleted!"); // maybe doesn't need
         super.removeItem();
         getItemContainer().remove(index);
         calculateWeight();
