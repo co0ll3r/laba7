@@ -1,6 +1,6 @@
 package Items;
 
-public class Shelf extends Container{
+public class Shelf extends Container {
     public Shelf(String name, double weight, String... properties) {
         super(name, weight, properties);
     }
@@ -11,12 +11,12 @@ public class Shelf extends Container{
 
     @Override
     public OneItem takeItem() {
-        return getItemContainer().get(getCurrentSize() - 1);
+        return getItemContainer().get(getCurrentSize());
     }
 
     @Override
     public void removeItem() throws ItemIsEmptyException {
-     //   getItemContainer().remove(index);
+        //   getItemContainer().remove(index);
         super.removeItem();
         changeWeight(-(getItemContainer().get(getCurrentSize()).getWeight()));
         getItemContainer().remove(getCurrentSize());
@@ -26,14 +26,13 @@ public class Shelf extends Container{
     // make flat constraints
     @Override
     public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
-        // contains??? alternative
-        for (String a :
+/*        for (String a :
                 newItem.getProperties()) {
-            if (a.equals("flat")){
-                addItem(newItem);
-                changeWeight(newItem.getWeight());
-                return;
-            }
+            if (a.equals("flat")){*/
+        if (getProperties().contains("flat")) {
+            addItem(newItem);
+            changeWeight(newItem.getWeight());
+            return;
         }
       //  getItemContainer().add(newItem);
 //        calculateWeight();

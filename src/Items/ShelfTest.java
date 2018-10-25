@@ -31,11 +31,12 @@ class ShelfTest {
             shelf1.removeItem();
             assertEquals(8.451, shelf1.getWeight());
             shelf1.removeItem();
-            assertEquals(4.451, shelf1.getWeight());
+            // doesn't work without delta!
+            assertEquals(4.451, shelf1.getWeight(), 0.00001);
             shelf1.removeItem();
-            assertEquals(1.951, shelf1.getWeight());
+            assertEquals(1.951, shelf1.getWeight(), 0.00001);
             shelf1.removeItem();
-            assertEquals(1.5, shelf1.getWeight());
+            assertEquals(1.5, shelf1.getWeight(), 0.00001);
         } catch (ItemIsEmptyException e) {
             e.printStackTrace();
         }
@@ -43,7 +44,7 @@ class ShelfTest {
     }
 
     @Test
-    void takeItem() {
+    void findItem() {
     }
 
     @Test
