@@ -9,16 +9,6 @@ public class Shelf extends Container{
         super(name, weight, properties);
     }
 
-    // Migrate to the abstract class?
-    @Override
-    void calculateWeight() {
-        double calcWeight = 0;
-        for(OneItem a : getItemContainer()){
-            calcWeight += a.getWeight();
-        }
-        this.setWeight(calcWeight);
-    }
-
     @Override
     public OneItem takeItem() {
         return getItemContainer().get(getCurrentSize() - 1);

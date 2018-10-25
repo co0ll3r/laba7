@@ -18,11 +18,6 @@ public class Box extends Container{
     }
 
     @Override
-    void calculateWeight() {
-
-    }
-
-    @Override
     OneItem takeItem() {
         return null;
     }

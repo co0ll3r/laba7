@@ -188,11 +188,14 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
         return null;
     }
 
-    abstract void calculateWeight();
-
-    abstract OneItem takeItem();
-
-    abstract void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException;
+    // TOO slow, any another solutions?
+    public void calculateWeight() {
+        double calcWeight = 0;
+        for (OneItem a : getItemContainer()) {
+            calcWeight += a.getWeight();
+        }
+        this.setWeight(calcWeight);
+    }
 
     @Override
     public void getInfo() {
@@ -204,7 +207,6 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
         }
         System.out.println();
     }
-
 
     @Override
     public Iterator<OneItem> iterator() {
@@ -222,6 +224,10 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
             }
         };
     }
+
+    abstract OneItem takeItem();
+
+    abstract void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException;
 
 }
 
