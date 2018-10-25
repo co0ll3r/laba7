@@ -23,17 +23,16 @@ public class Bag extends Container {
 
     @Override
     void removeItem() throws ItemIsEmptyException {
-        if (getCurrentSize() == 0)
-            throw new ItemIsEmptyException();
-        int index = new Random().nextInt(getCurrentSize());
-        OneItem itemForDelete = getItemContainer().get(index);
-        itemForDelete.itemRemoved();
-        System.out.println(itemForDelete + " has deleted!"); // maybe doesn't need
         super.removeItem();
-        System.out.println(-getItemContainer().get(index).getWeight());
+        int index = new Random().nextInt(getCurrentSize() + 1);
+        OneItem itemForDelete = getItemContainer().get(index);
+        itemForDelete.itemRemoved(); // make isAdded = false
+
+        System.out.println(itemForDelete + " has deleted!"); // maybe doesn't need
+//        System.out.println(-getItemContainer().get(index).getWeight());
+
         changeWeight(-getItemContainer().get(index).getWeight());
         getItemContainer().remove(index);
-//        calculateWeight();
     }
 
     @Override

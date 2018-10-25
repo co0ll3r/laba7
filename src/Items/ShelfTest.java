@@ -42,7 +42,7 @@ class ShelfTest {
         } catch (ItemIsEmptyException e) {
             e.printStackTrace();
         }
-        shelf1.getInfo();
+//        shelf1.getInfo();
         assertThrows(ItemIsEmptyException.class, shelf1::removeItem);
     }
 
