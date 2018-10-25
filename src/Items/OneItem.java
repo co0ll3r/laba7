@@ -127,8 +127,8 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
             throw new ItemStoreException(newItem, this.getName() + " overflow! You're trying to put " + (currentSize + 1) +
                     " items in " + this.getName() + ", when the maximum is " + maxItems + ".");
         if (this.getWeight() + newItem.getWeight() > maxWeight)
-            throw new ItemStoreException(newItem, this.getName() + " overweight! The weight would be " + (getWeight() +
-                    newItem.getWeight()) + ", when the maximum is " + maxWeight + ".");
+            throw new ItemStoreException(this.getName() + " overweight! The weight would be " + (getWeight() +
+                    newItem.getWeight()) + ", when the maximum is " + maxWeight + ".", newItem);
 
         newItem.itemAdded();
         currentSize++;
