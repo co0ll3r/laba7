@@ -1,5 +1,7 @@
 package Items;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BagTest {
@@ -124,20 +126,21 @@ class BagTest {
 
     @org.junit.jupiter.api.Test
     void findAndIteratorTest() {
-        Bag bag = new Bag("bag", 0.01, 7, 15, "black");
         OneItem item1 = new OneItem("potato", 3, "fresh");
         OneItem item2 = new OneItem("milk", 1, "cheap");
         OneItem item3 = new OneItem("bread", 0.5, "warm");
+        ArrayList<OneItem> items = new ArrayList<>();
+        items.add(item1);
+        items.add(item2);
+        items.add(item3);
+        Bag bag = new Bag("bag", 0.01, items, 7, 15, "black");
         try {
-            bag.pushItem(item1);
-            bag.pushItem(item2);
-            bag.pushItem(item3);
             // double search!! slow?
             if (bag.containItem("sad"))
                 bag.findByName("sad").getInfo();
             if (bag.containItem("potato"))
                 bag.findByName("potato").getInfo();
-        } catch (ItemAlreadyPlacedException | ItemStoreException | ItemIsEmptyException e) {
+        } catch (ItemIsEmptyException e) {
             e.printStackTrace();
         }
 
