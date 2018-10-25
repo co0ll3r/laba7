@@ -20,23 +20,32 @@ public class Box extends Container {
 
     // Maybe make some abstract or interface?
     // it's copy of the takeItem() from the Bag class
+    // fix null return!
     @Override
     OneItem takeItem() {
+        if (checkIsBoxClosed()) {
+            System.out.println("The box is closed, can't take anything.");
+            return null;
+        }
         return getItemContainer().get(new Random().nextInt(getCurrentSize())); // take random
     }
 
     // it's copy of the removeItem() from the Bag class
     @Override
     void removeItem() throws ItemIsEmptyException {
-        super.removeItem();
-        int index = new Random().nextInt(getCurrentSize() + 1);
-        OneItem itemForDelete = getItemContainer().get(index);
-        itemForDelete.itemRemoved(); // make isAdded = false
+        if (checkIsBoxClosed()) {
+            System.out.println("The box is closed, can't remove anything.");
+        } else {
+            super.removeItem();
+            int index = new Random().nextInt(getCurrentSize() + 1);
+            OneItem itemForDelete = getItemContainer().get(index);
+            itemForDelete.itemRemoved(); // make isAdded = false
 
-        System.out.println(itemForDelete + " has deleted!"); // maybe doesn't need
+            System.out.println(itemForDelete + " has deleted!"); // maybe doesn't need
 
-        changeWeight(-getItemContainer().get(index).getWeight());
-        getItemContainer().remove(index);
+            changeWeight(-getItemContainer().get(index).getWeight());
+            getItemContainer().remove(index);
+        }
     }
 
     // you can make: if closed, then transform into a stack with two items, the first one is the closed box;
