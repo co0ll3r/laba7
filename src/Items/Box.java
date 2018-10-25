@@ -1,6 +1,7 @@
 package Items;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Box extends Container {
     private boolean isBoxClosed = false;
@@ -17,9 +18,25 @@ public class Box extends Container {
         super(name, weight, newContainer, maxItems, maxWeight, properties);
     }
 
+    // Maybe make some abstract or interface?
+    // it's copy of the takeItem() from the Bag class
     @Override
     OneItem takeItem() {
-        return null;
+        return getItemContainer().get(new Random().nextInt(getCurrentSize())); // take random
+    }
+
+    // it's copy of the removeItem() from the Bag class
+    @Override
+    void removeItem() throws ItemIsEmptyException {
+        super.removeItem();
+        int index = new Random().nextInt(getCurrentSize() + 1);
+        OneItem itemForDelete = getItemContainer().get(index);
+        itemForDelete.itemRemoved(); // make isAdded = false
+
+        System.out.println(itemForDelete + " has deleted!"); // maybe doesn't need
+
+        changeWeight(-getItemContainer().get(index).getWeight());
+        getItemContainer().remove(index);
     }
 
     // you can make: if closed, then transform into a stack with two items, the first one is the closed box;
@@ -27,9 +44,10 @@ public class Box extends Container {
     void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
         if (checkIsBoxClosed()){
             System.out.println("The box is closed, can't add anything.");
-            return;
+        } else {
+            addItem(newItem);
+            changeWeight(newItem.getWeight());
         }
-
     }
 
     void openBox() {
