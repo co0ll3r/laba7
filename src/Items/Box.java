@@ -25,6 +25,7 @@ public class Box extends Container{
     @Override
     void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
 
+
     }
 
     void openBox(){

@@ -18,15 +18,23 @@ public class Shelf extends Container{
     public void removeItem() throws ItemIsEmptyException {
      //   getItemContainer().remove(index);
         super.removeItem();
-        changeWeight(-getItemContainer().get(getCurrentSize() - 1).getWeight());
-        getItemContainer().remove(getCurrentSize() - 1);
+        changeWeight(-(getItemContainer().get(getCurrentSize()).getWeight()));
+        getItemContainer().remove(getCurrentSize());
 //        calculateWeight();
     }
 
+    // make flat constraints
     @Override
     public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
-        addItem(newItem);
-        changeWeight(newItem.getWeight());
+        // contains??? alternative
+        for (String a :
+                newItem.getProperties()) {
+            if (a.equals("flat")){
+                addItem(newItem);
+                changeWeight(newItem.getWeight());
+                return;
+            }
+        }
       //  getItemContainer().add(newItem);
 //        calculateWeight();
     }
