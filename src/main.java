@@ -12,7 +12,7 @@ public class main {
             bag1.pushItem(new OneItem("table", 20));
             bag1.pushItem(new OneItem("chair", 8));
             bag1.getInfo();
-            bag1.takeItem(0).getInfo();
+//            bag1.takeItem(0).getInfo();
 
 
 /*        for (OneItem a :

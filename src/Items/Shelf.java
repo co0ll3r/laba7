@@ -6,7 +6,7 @@ public class Shelf extends Container{
     }
 
     public Shelf(String name, double weight, int maxItems, int maxWeight, String... properties) {
-        super(name, weight, properties);
+        super(name, weight, maxItems, maxWeight, properties);
     }
 
     @Override

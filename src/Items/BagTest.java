@@ -57,7 +57,7 @@ class BagTest {
     @org.junit.jupiter.api.Test
     void TestExceptions() {
         OneItem uniqueItem = new OneItem("key", 0.05, "rare", "golden");
-        OneItem item2 = new OneItem("handle", 0.03, "oiled");
+        var item2 = new OneItem("handle", 0.03, "oiled");
         OneItem item3 = new OneItem("desk", 10, "brown");
         OneItem item4 = new OneItem("fork", 0.01, "copper");
         Bag bag1 = new Bag("bag1", 1, 2, 10);
@@ -145,7 +145,6 @@ class BagTest {
         }
 
         // Iterator test!
-        Bag bag2 = new Bag("bag", 0.01, 3, 5);
         System.out.println();
         for (OneItem a :
                 bag) {
