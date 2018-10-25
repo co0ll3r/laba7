@@ -106,8 +106,8 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
         this.maxWeight = maxWeight;
     }
 
-    Container(String name, double weight, ArrayList<OneItem> newContainer, String... properties) {
-        super(name, weight, properties);
+    Container(String name, double weight, ArrayList<OneItem> newContainer, int maxItems, int maxWeight, String... properties) {
+        this(name, weight, maxItems, maxWeight, properties);
         this.itemContainer = newContainer;
         this.currentSize = itemContainer.size();
     }

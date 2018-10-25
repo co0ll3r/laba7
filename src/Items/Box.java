@@ -3,6 +3,8 @@ package Items;
 import java.util.ArrayList;
 
 public class Box extends Container{
+    private boolean isBoxClosed = false;
+
     Box(String name, double weight, String... properties) {
         super(name, weight, properties);
     }
@@ -11,8 +13,8 @@ public class Box extends Container{
         super(name, weight, maxItems, maxWeight, properties);
     }
 
-    Box(String name, double weight, ArrayList<OneItem> newContainer, String... properties) {
-        super(name, weight, newContainer, properties);
+    Box(String name, double weight, ArrayList<OneItem> newContainer, int maxItems, int maxWeight, String... properties) {
+        super(name, weight, newContainer, maxItems, maxWeight, properties);
     }
 
     @Override
@@ -27,6 +29,14 @@ public class Box extends Container{
 
     @Override
     void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
+
+    }
+
+    void openBox(){
+
+    }
+
+    void closeBox(){
 
     }
 

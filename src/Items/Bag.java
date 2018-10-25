@@ -12,8 +12,8 @@ public class Bag extends Container {
         super(name, weight, maxItems, maxWeight, properties);
     }
 
-    public Bag(String name, double weight, ArrayList<OneItem> newContainer, String properties) {
-        super(name, weight, newContainer, properties);
+    public Bag(String name, double weight, ArrayList<OneItem> newContainer, int maxItems, int maxWeight, String properties) {
+        super(name, weight, newContainer, maxItems, maxWeight, properties);
     }
 
     // TOO slow, any another solutions?

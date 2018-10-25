@@ -9,7 +9,7 @@ public class Shelf extends Container{
         super(name, weight, properties);
     }
 
-    // Migrate to the abstract class
+    // Migrate to the abstract class?
     @Override
     void calculateWeight() {
         double calcWeight = 0;
@@ -28,8 +28,9 @@ public class Shelf extends Container{
     public void removeItem() throws ItemIsEmptyException {
      //   getItemContainer().remove(index);
         super.removeItem();
+        changeWeight(-getItemContainer().get(getCurrentSize() - 1).getWeight());
         getItemContainer().remove(getCurrentSize() - 1);
-        calculateWeight();
+//        calculateWeight();
     }
 
     @Override
