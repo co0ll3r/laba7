@@ -14,7 +14,7 @@ class ShelfTest {
         var item3 = new OneItem("dvd-player", 4, "flat");
         var item4 = new OneItem("barbell", 20, "flat");
         var item5 = new OneItem("server", 7, "flat");
-        var item6 = new OneItem("computer", 3, "flat");
+        var item6 = new OneItem("computer", 3, "FLAT");
         try {
             shelf1.pushItem(item1);
             shelf1.pushItem(item2);
@@ -23,6 +23,8 @@ class ShelfTest {
             shelf1.pushItem(item6);
             assertThrows(ItemStoreException.class, () -> shelf1.pushItem(item5));
             assertThrows(ItemAlreadyPlacedException.class, () -> shelf1.pushItem(item1));
+            shelf1.pushItem(new OneItem("spoon", 0.0015, "engraved", "small"));
+            shelf1.pushItem(new OneItem("spoon", 0.0015, "engraved", "small", "flag"));
         } catch (ItemAlreadyPlacedException | ItemStoreException e) {
             e.printStackTrace();
         }
@@ -40,6 +42,7 @@ class ShelfTest {
         } catch (ItemIsEmptyException e) {
             e.printStackTrace();
         }
+        shelf1.getInfo();
         assertThrows(ItemIsEmptyException.class, shelf1::removeItem);
     }
 

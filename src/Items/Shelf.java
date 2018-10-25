@@ -26,14 +26,16 @@ public class Shelf extends Container {
     // make flat constraints
     @Override
     public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
-/*        for (String a :
+        for (String a :
                 newItem.getProperties()) {
-            if (a.equals("flat")){*/
-        if (getProperties().contains("flat")) {
-            addItem(newItem);
-            changeWeight(newItem.getWeight());
-            return;
+            if (a.equalsIgnoreCase("flat")) {
+//        if (getProperties().contains("flat")) {  // Doesn't work
+                addItem(newItem);
+                changeWeight(newItem.getWeight());
+                return;
+            }
         }
+        System.err.println("Can't add not flat item!");
       //  getItemContainer().add(newItem);
 //        calculateWeight();
     }
