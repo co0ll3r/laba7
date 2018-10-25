@@ -2,7 +2,7 @@ package Items;
 
 import java.util.ArrayList;
 
-public class Box extends Container{
+public class Box extends Container {
     private boolean isBoxClosed = false;
 
     Box(String name, double weight, String... properties) {
@@ -22,18 +22,26 @@ public class Box extends Container{
         return null;
     }
 
+    // you can make: if closed, then transform into a stack with two items, the first one is the closed box;
     @Override
     void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
-
+        if (checkIsBoxClosed()){
+            System.out.println("The box is closed, can't add anything.");
+            return;
+        }
 
     }
 
-    void openBox(){
-
+    void openBox() {
+        isBoxClosed = false;
     }
 
-    void closeBox(){
+    void closeBox() {
+        isBoxClosed = true;
+    }
 
+    boolean checkIsBoxClosed() {
+        return isBoxClosed;
     }
 
 }
