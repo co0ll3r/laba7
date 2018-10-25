@@ -150,5 +150,7 @@ class BagTest {
                 bag) {
             a.getInfo();
         }
+        System.out.println();
+        System.out.println( bag.toString());
     }
 }

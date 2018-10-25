@@ -225,6 +225,13 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
         };
     }
 
+    @Override
+    public String toString() {
+        return super.toString() +
+                String.format(" Current size: %d; MaxItems: %d; MaxWeight: %d; Items in the container: %s",
+                getCurrentSize(), maxItems, maxWeight, getItemContainer().toString());
+    }
+
     abstract OneItem takeItem();
 
     abstract void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException;
