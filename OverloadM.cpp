@@ -28,17 +28,17 @@ std::istream& operator>>(std::istream& in, RECORD& a){
 		if (std::cin.fail())
 			throw InputErr(" Вы ввели строковый символ (при добавлении предмета).");
 	}	
-/*	catch (InputErr &e){
+	catch (InputErr &e){
 		int i = 0;
 		while(std::cin.fail()){
 			e.outputErr();
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // cin.ignore() - очистить один символ из входного буфера, <streamsize>::max - говорит о том, что очищаем весь поток
 //			e.inputAgainMessage(++i);
-			std::cin >> SwitchChoose;
+			std::cin >> i;
 		}
 	//	std::cout << "\033c"; // clear console 
-	}*/
+	}
 
 		return in;
 	}

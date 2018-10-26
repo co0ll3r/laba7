@@ -61,8 +61,8 @@ void GetMenu(Perechen& ExampleComputer, bool& exitFlag){
 				case 4:  workComputer.Delete_comp(); break;
 			      //case 5:  std::cout << (workComputers)ExampleComputer; break; // перегруженный вывод таблицы на экран
 				case 5:  std::cout << workComputer; break;			
-			      //case 6:  ExampleComputer.workComputers::SortProcTypeAndClock(); break;
-				case 6:  fixSortProcTypeAndClock(workComputer); break;
+			    case 6:  ExampleComputer.workComputers::SortProcTypeAndClock(); break;
+//				case 6:  fixSortProcTypeAndClock(workComputer); break;
 			      //workComputer.SortProcTypeAndClock()
 				case 7:  workComputer.SortProcName(); break; 	
 				case 8:	 workComputer.SortPrice(); break;
