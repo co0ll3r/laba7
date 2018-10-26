@@ -114,6 +114,10 @@ void GetMenu(Perechen& ExampleComputer, bool& exitFlag){
 			e.outputErr();
 		} catch (MemoryErr& e) {
 			e.outputErr();
+		} catch (EmptyMassive& e) {
+			e.outputErr();
+		} catch (InputErr& e){
+			e.outputErr();
 		}
 		std::cout << "\nВведите 1 для повторного выбора пункта меню(без очистки экрана): ";
 		std::cin >> SwitchChoose;  
