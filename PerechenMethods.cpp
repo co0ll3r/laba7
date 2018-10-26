@@ -28,7 +28,7 @@ void Perechen::testCopyOperator(){
 	if (true){
 		Perechen eg;
 		eg = *this;
-		std::cout << "вывод первого объекта:\n" << eg 
+		std::cout << "вывод первого объекта:\n" << eg
 		<< "копирование объекта через оператор присваивания\n";
 		eg2 = eg;
 	}
@@ -36,14 +36,14 @@ void Perechen::testCopyOperator(){
 };
 void Perechen::testCopyConstructor(){
 	Perechen eg(*this);
-	std::cout << "вывод первого объекта:\n" << eg 
+	std::cout << "вывод первого объекта:\n" << eg
 	<< "Копирование первого объекта через конструктор:\n";
 	Perechen eg2(eg);
 	std::cout << "вывод второго объекта:\n" << eg2;
 }
 void Perechen::showFirstPerech(){
 	std::cout << std::setfill('-') << std::setw(57) << '\n' <<
-		"|     Название процессора     | Количество компьютеров |\n" << 
+		"|     Название процессора     | Количество компьютеров |\n" <<
 		std::setw(57) << '\n';
 	std::cout << std::setfill(' ');
 	for (int i = 0; i < pBrandlen; i++)
@@ -53,7 +53,7 @@ void Perechen::showFirstPerech(){
 
 void Perechen::showSecondPerech(){
 	std::cout << std::setfill('-') << std::setw(52) << '\n' <<
-		"|     Тип процессора     | Количество компьютеров |\n" << 
+		"|     Тип процессора     | Количество компьютеров |\n" <<
 		std::setw(52) << '\n';
 	std::cout << std::setfill(' ');
 	for (int i = 0; i < pProclen; i++)
@@ -63,7 +63,7 @@ void Perechen::showSecondPerech(){
 
 void Perechen::showThirdPerech(){
 	std::cout << std::setfill('-') << std::setw(55) << '\n' <<
-		"|     Объём видеопамяти     | Количество компьютеров |\n" << 
+		"|     Объём видеопамяти     | Количество компьютеров |\n" <<
 		std::setw(55) << '\n';
 	std::cout << std::setfill(' ');
 	for (int i = 0; i < pVideolen; i++)
@@ -86,7 +86,7 @@ void Perechen::sortProcTypeFirstPerech(){
 			}
 		}
 		n--;
-	} while (flag);	
+	} while (flag);
 }
 
 void Perechen::sortCountSecondPerech(){
@@ -95,7 +95,7 @@ void Perechen::sortCountSecondPerech(){
 	do{
 		flag = false;
 		for(int i = 1; i < n; i++){
-			if (perechenProcTypes[i - 1] > perechenProcTypes[i])			
+			if (perechenProcTypes[i - 1] > perechenProcTypes[i])
 			{
 				TypeProcPerech temp = perechenProcTypes[i];
 				perechenProcTypes[i] = perechenProcTypes[i - 1];
@@ -123,7 +123,7 @@ void Perechen::sortVideoVolumeThirdPerech(){
 			}
 		}
 		n--;
-	} while (flag);	
+	} while (flag);
 }
 
 void Perechen::saveFirstPerech(){
@@ -132,12 +132,10 @@ void Perechen::saveFirstPerech(){
 	std::cin >> file;
 	std::ofstream fout;
 	fout.open(file);
-	if (fout.fail()){
-		std::cout << file << " не удалось открыть файл\n";
-		return;
-	}
+    if (fout.fail())
+        throw OpenFileErr("Не удалось сохранить файл под именем: " + file, false);
 	fout <<   std::setfill('-') << std::setw(57) << '\n' <<
-		"|     Название процессора     | Количество компьютеров |\n" << 
+		"|     Название процессора     | Количество компьютеров |\n" <<
 	std::setw(57) << '\n';
 	fout << std::setfill(' ');
 	for (int i = 0; i < pBrandlen; i++)
@@ -151,12 +149,10 @@ void Perechen::saveSecondPerech(){
 	std::cin >> file;
 	std::ofstream fout;
 	fout.open(file);
-	if (fout.fail()){
-		std::cout << file << " не удалось открыть файл\n";
-		return;
-	}
+	if (fout.fail())
+		throw OpenFileErr("Не удалось сохранить файл под именем: " + file, false);
 	fout << std::setfill('-') << std::setw(52) << '\n' <<
-		"|     Тип процессора     | Количество компьютеров |\n" << 
+		"|     Тип процессора     | Количество компьютеров |\n" <<
 		std::setw(52) << '\n';
 	fout << std::setfill(' ');
 	for (int i = 0; i < pProclen; i++)
@@ -170,43 +166,24 @@ void Perechen::saveThirdPerech(){
 	std::cin >> file;
 	std::ofstream fout;
 	fout.open(file);
-	if (fout.fail()){
-		std::cout << file << " не удалось открыть файл\n";
-		return;
-	}
+	if (fout.fail())
+		throw OpenFileErr("Не удалось сохранить файл под именем: " + file, false);
 	fout << std::setfill('-') << std::setw(55) << '\n' <<
-		"|     Объём видеопамяти     | Количество компьютеров |\n" << 
+		"|     Объём видеопамяти     | Количество компьютеров |\n" <<
 		std::setw(55) << '\n';
 	fout << std::setfill(' ');
 	for (int i = 0; i < pVideolen; i++)
 		fout << perechenVideocardVolume[i];
 	fout << '\n';
 }
-
-/*void saveAllPerech(Perechen a){
-	std::string file;
-	std::cout << "Введите имя файла для сохранения 3 перечень\n";
-	std::cin >> file;
-	std::ofstream fout;
-	fout.open(file);
-	if (fout.fail()){
-		std::cout << file << " не удалось открыть файл\n";
-		return;
-	}
-	fout << a;
-	fout << "\n";
-}*/
-
 void makePerechen1(workComputers clWorkComp, Perechen& clPerech){
-	if (clWorkComp.size == 0){
-		std::cout << "Ошибка при создании 1 перечня! Введите массив\n";
-		return;
-	}
+	if (clWorkComp.size == 0)
+		throw EmptyMassive("создании 1 перечня.");
 	std::set<std::string> UniqueNames;
 	for (int i = 0; i < clWorkComp.size; i++)
 		UniqueNames.insert(clWorkComp.CapabilitiesComp[i].CompInfo.ProcName);
 	int nomerMass = 0, counter = 1;
-	clPerech.pBrandlen = UniqueNames.size(); 
+	clPerech.pBrandlen = UniqueNames.size();
 	if (clPerech.perechenBrands != NULL)
 		delete [] clPerech.perechenBrands;
 	clPerech.perechenBrands = new BrandPerech[clPerech.pBrandlen];
@@ -218,14 +195,12 @@ void makePerechen1(workComputers clWorkComp, Perechen& clPerech){
 				clPerech.perechenBrands[nomerMass].Count = counter++;
 		counter = 1;
 		nomerMass++;
-	}	
+	}
 }
 
 void makePerechen2(workComputers clWorkComp, Perechen& clPerech){
-	if (clWorkComp.size == 0){
-		std::cout << "Ошибка при создании 2 перечня! Введите массив\n";
-		return;
-	}
+	if (clWorkComp.size == 0)
+		throw EmptyMassive("создании 1 перечня.");
 	std::set<std::string> UniqueNames;
 	int nomerMass = 0, counter = 1;
 	for (int i = 0; i < clWorkComp.size; i++)
@@ -246,10 +221,8 @@ void makePerechen2(workComputers clWorkComp, Perechen& clPerech){
 }
 
 void makePerechen3(workComputers clWorkComp, Perechen& clPerech){
-	if (clWorkComp.size == 0){
-		std::cout << "Ошибка при создании 3 перечня! Введите массив\n";
-		return;
-	}
+	if (clWorkComp.size == 0)
+		throw EmptyMassive("создании 1 перечня.");
 	std::set<double> VolumePer;
  	int nomerMass = 0, counter = 1;
 	for (int i = 0; i < clWorkComp.size; i++)
