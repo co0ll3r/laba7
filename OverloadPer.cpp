@@ -1,4 +1,5 @@
 #include "CompHeader.h"
+// no exceptions for OverloadPer.cpp
 // перегрузки выводов в консоль
 std::ostream& operator<<(std::ostream& out, BrandPerech a){
 	out << '|' << std::setw(29) << a.ProcName << '|' << std::setw(24) << a.Count << "|\n";
