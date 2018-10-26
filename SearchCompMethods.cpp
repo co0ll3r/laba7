@@ -101,6 +101,8 @@ void SearchComp::SortRAM(){
 }
 
 void SearchComp::SearchPrice(){
+	if (CapabilitiesComp == nullptr)
+		throw EmptyMassive("поиске по цене.");
 	double BottomBorder, TopBorder;
 	std::cout << "Введите нижнюю границу цены(нестрогое): ";
 	std::cin >> BottomBorder;
@@ -139,7 +141,7 @@ void SearchComp::SearchPrice(){
 
 void SearchComp::SearchHddVolume(){
 	if (CapabilitiesComp == nullptr)
-		throw EmptyMassive("поиске по объему жесткого диска.")
+		throw EmptyMassive("поиске по объему жесткого диска.");
 	double BottomBorder, TopBorder;
 	std::cout << "Введите нижнюю границу размера памяти(нестрогое): ";
 	std::cin >> BottomBorder;
@@ -174,7 +176,7 @@ void SearchComp::SearchHddVolume(){
 
 void SearchComp::SearchBrandTypeRamETC(){
 	if (CapabilitiesComp == nullptr)
-		throw EmptyMassive("поиске по всем полям.")
+		throw EmptyMassive("поиске по всем полям.");
 	std::string NameOfProc, TypeOfProc;
 	double BottomBorder, TopBorder, BBRAM, TBRAM, BBVideo, TBVideo;
 	std::cout << "Введите название марки процессора ";
