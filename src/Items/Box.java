@@ -6,6 +6,7 @@ import java.util.Random;
 public class Box extends Container {
     private boolean isBoxClosed = false;
 
+
     Box(String name, double weight, String... properties) {
         super(name, weight, properties);
     }
@@ -72,4 +73,8 @@ public class Box extends Container {
         return isBoxClosed;
     }
 
+    @Override
+    public String toString() {
+        return "Box is closed?: " + checkIsBoxClosed() + super.toString();
+    }
 }

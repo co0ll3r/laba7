@@ -45,13 +45,14 @@ class BoxTest {
 
     @Test
     void closeBox() {
-       Box box = new Box("box", 1.1, 3, 15);
+        Box box = new Box("crate", 1.1, 3, 15, "wooden");
+        box.getInfo();
         var item1 = new OneItem("book", 0.451, "flat", "1984");
         var item2 = new OneItem("laptop", 2.5, "flat", "asus");
         var item3 = new OneItem("dvd-player", 4, "flat");
         var item4 = new OneItem("laptop", 2.5, "flat", "asus");
         var item5 = new OneItem("dvd-player", 4, "flat");
-        try{
+        try {
             box.pushItem(item1);
             box.pushItem(item2);
             box.pushItem(item3);
@@ -60,8 +61,8 @@ class BoxTest {
         }
         box.closeBox();
         if (!box.checkIsBoxClosed())
-           box.takeItem().getInfo();
-        try{
+            box.takeItem().getInfo();
+        try {
             box.pushItem(item4);
             box.pushItem(item5);
             box.removeItem();
@@ -71,6 +72,10 @@ class BoxTest {
         } catch (ItemAlreadyPlacedException | ItemStoreException | ItemIsEmptyException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    void putOnShelve() {
 
     }
 }
