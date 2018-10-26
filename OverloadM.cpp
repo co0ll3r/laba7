@@ -19,13 +19,29 @@ std::istream& operator>>(std::istream& in, COMP& a){
 	return in;
 }
 std::istream& operator>>(std::istream& in, RECORD& a){
-	std::cin >> a.CompInfo;
-	std::cout << "Введите цену: ";
-	in >> a.CompCost;
-	std::cout << "Введите количество компьютеров на складе: ";
-	in >> a.CompInStock;
-	return in;
-}
+	try{
+		std::cin >> a.CompInfo;
+		std::cout << "Введите цену: ";
+		in >> a.CompCost;
+		std::cout << "Введите количество компьютеров на складе: ";
+		in >> a.CompInStock;
+		if (std::cin.fail())
+			throw InputErr(" Вы ввели строковый символ (при добавлении предмета).");
+	}	
+/*	catch (InputErr &e){
+		int i = 0;
+		while(std::cin.fail()){
+			e.outputErr();
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // cin.ignore() - очистить один символ из входного буфера, <streamsize>::max - говорит о том, что очищаем весь поток
+//			e.inputAgainMessage(++i);
+			std::cin >> SwitchChoose;
+		}
+	//	std::cout << "\033c"; // clear console 
+	}*/
+
+		return in;
+	}
 
 //ввод из файла
 std::ifstream& operator>>(std::ifstream& in, COMP& a){
