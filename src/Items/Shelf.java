@@ -29,14 +29,22 @@ public class Shelf extends Container {
         for (String a :
                 newItem.getProperties()) {
             if (a.equalsIgnoreCase("flat")) {
-//        if (getProperties().contains("flat")) {  // Doesn't work
+                if (newItem instanceof Box){
+                    ((Box) newItem).closeBox();
+                }
                 addItem(newItem);
                 changeWeight(newItem.getWeight());
                 return;
             }
         }
         System.err.println("Can't add not flat item!");
-      //  getItemContainer().add(newItem);
+        //  getItemContainer().add(newItem);
 //        calculateWeight();
+//        if (getProperties().contains("flat")) {  // Doesn't work
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }
