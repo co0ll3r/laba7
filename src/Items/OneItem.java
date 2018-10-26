@@ -232,7 +232,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
                 getCurrentSize(), maxItems, maxWeight, getItemContainer().toString());
     }
 
-    abstract OneItem takeItem();
+    abstract OneItem takeItem() throws CannotAccessTheContainer;
 
     abstract void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException;
 

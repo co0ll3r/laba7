@@ -2,6 +2,8 @@ package Items;
 
 import org.junit.jupiter.api.Test;
 
+import javax.naming.CannotProceedException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoxTest {
@@ -60,22 +62,24 @@ class BoxTest {
             e.printStackTrace();
         }
         box.closeBox();
-        if (!box.checkIsBoxClosed())
-            box.takeItem().getInfo();
+//        if (!box.checkIsBoxClosed())
+            assertThrows(CannotAccessTheContainer.class, () -> box.takeItem().getInfo());
         try {
             box.pushItem(item4);
             box.pushItem(item5);
             box.removeItem();
             box.openBox();
-            if (!box.checkIsBoxClosed())
+//            if (!box.checkIsBoxClosed())
                 box.takeItem().getInfo();
         } catch (ItemAlreadyPlacedException | ItemStoreException | ItemIsEmptyException e) {
             e.printStackTrace();
+        } catch (CannotAccessTheContainer cannotAccessTheContainer) {
+            cannotAccessTheContainer.printStackTrace();
         }
     }
 
     @Test
-    void putOnShelve() {
+    void putOnShelf() {
 
     }
 }

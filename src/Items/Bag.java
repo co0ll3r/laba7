@@ -42,7 +42,12 @@ public class Bag extends Container {
 //        calculateWeight();
     }
 
-        /* make an exception for the case outOfBoundException
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    /* make an exception for the case outOfBoundException
     public OneItem takeItem(int index) {
         try {
             return getItemContainer().get(index);
