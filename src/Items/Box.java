@@ -9,14 +9,18 @@ public class Box extends Container {
 
     Box(String name, double weight, String... properties) {
         super(name, weight, properties);
+        getProperties().add("flat");
     }
 
+    // how to add flat!!??
     Box(String name, double weight, int maxItems, int maxWeight, String... properties) {
         super(name, weight, maxItems, maxWeight, properties);
+        getProperties().add("flat");
     }
 
     Box(String name, double weight, ArrayList<OneItem> newContainer, int maxItems, int maxWeight, String... properties) {
         super(name, weight, newContainer, maxItems, maxWeight, properties);
+        getProperties().add("flat");
     }
 
     // Maybe make some abstract or interface?
@@ -24,10 +28,10 @@ public class Box extends Container {
     // fix null return!
     // or use exceptions?
     @Override
-    OneItem takeItem() {
+    OneItem takeItem() throws CannotAccessTheContainer {
         if (checkIsBoxClosed()) {
             System.out.println("The box is closed, can't take anything.");
-            return null;
+            throw new CannotAccessTheContainer("You're trying to get an item from the closed box");
         }
         return getItemContainer().get(new Random().nextInt(getCurrentSize())); // take random
     }
