@@ -9,6 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoxTest {
 
     @Test
+    void addTheSame(){
+
+    }
+
+    @Test
     void takeItem() {
         Box box1 = new Box("box", 1.5, 4, 20, "flat", "wooden");
         var item1 = new OneItem("book", 0.451, "flat", "1984");

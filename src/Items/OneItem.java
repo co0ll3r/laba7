@@ -148,6 +148,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
 
     /**
      * Polite version of findByName without exceptions
+     *
      * @param name
      * @return true if the container has the equal name, otherwise return false, even if the container is empty
      */
@@ -205,7 +206,8 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
                 itemContainer) {
             a.getInfo();
         }
-        System.out.println();
+        if (getCurrentSize() != 0)
+            System.out.println();
     }
 
     @Override
@@ -229,7 +231,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
     public String toString() {
         return super.toString() +
                 String.format(" Current size: %d; MaxItems: %d; MaxWeight: %d; Items in the container: %s",
-                getCurrentSize(), maxItems, maxWeight, getItemContainer().toString());
+                        getCurrentSize(), maxItems, maxWeight, getItemContainer().toString());
     }
 
     abstract OneItem takeItem() throws CannotAccessTheContainer;
