@@ -36,7 +36,10 @@ public class Bag extends Container {
     }
 
     @Override
-    public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
+    public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, AddTheSameException {
+        if (newItem == this) {
+            throw new AddTheSameException("You're trying to the item the same item!");
+        }
         addItem(newItem);
         changeWeight(newItem.getWeight());
 //        calculateWeight();

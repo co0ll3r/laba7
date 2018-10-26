@@ -34,6 +34,8 @@ public class main {
             shelf1.getInfo();
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
+        } catch (AddTheSameException e) {
+            e.printStackTrace();
         }
 
 /*        while (bag1.iterator().hasNext()){

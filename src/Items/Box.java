@@ -56,7 +56,10 @@ public class Box extends Container {
 
     // you can make: if closed, then transform into a stack with two items, the first one is the closed box;
     @Override
-    void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
+    void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, AddTheSameException {
+        if (newItem == this) {
+            throw new AddTheSameException("You're trying to the item the same item!");
+        }
         if (checkIsBoxClosed()){
             System.out.println("The box is closed, can't add anything.");
         } else {

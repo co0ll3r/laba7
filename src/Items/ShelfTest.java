@@ -25,7 +25,7 @@ class ShelfTest {
             assertThrows(ItemAlreadyPlacedException.class, () -> shelf1.pushItem(item1));
             shelf1.pushItem(new OneItem("spoon", 0.0015, "engraved", "small"));
             shelf1.pushItem(new OneItem("spoon", 0.0015, "engraved", "small", "flag"));
-        } catch (ItemAlreadyPlacedException | ItemStoreException e) {
+        } catch (ItemAlreadyPlacedException | ItemStoreException | AddTheSameException e) {
             e.printStackTrace();
         }
         assertEquals(11.451, shelf1.getWeight());
@@ -59,9 +59,7 @@ class ShelfTest {
         try {
             box1.pushItem(item1);
             box1.pushItem(item2);
-        } catch (ItemAlreadyPlacedException e) {
-            e.printStackTrace();
-        } catch (ItemStoreException e) {
+        } catch (ItemAlreadyPlacedException | AddTheSameException | ItemStoreException e) {
             e.printStackTrace();
         }
     }

@@ -234,7 +234,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
 
     abstract OneItem takeItem() throws CannotAccessTheContainer;
 
-    abstract void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException;
+    abstract void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, AddTheSameException;
 
 }
 

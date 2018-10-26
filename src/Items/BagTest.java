@@ -12,6 +12,27 @@ class BagTest {
     }
 
     @org.junit.jupiter.api.Test
+    void putInTheSame(){
+        Bag bag1 = new Bag("bag1", 0.5, "white");
+        Bag bag2 = new Bag("bag1", 0.5, "white");
+        Bag bag3 = new Bag("bag1", 0.5, "white");
+        Bag bag4 = new Bag("bag1", 0.5, "white");
+        Bag bag5 = new Bag("bag1", 0.5, "white");
+        OneItem item1 = new OneItem("cat", 7, "black", "fluffy", "cute");
+        try {
+            bag1.pushItem(item1);
+            assertThrows(AddTheSameException.class, () -> bag1.pushItem(bag1));
+            bag1.pushItem(bag2);
+            bag2.pushItem(bag1);
+        } catch (ItemAlreadyPlacedException | ItemStoreException e) {
+            e.printStackTrace();
+        } catch (AddTheSameException e) {
+            e.printStackTrace();
+        }
+        bag1.getInfo();
+    }
+
+    @org.junit.jupiter.api.Test
     void calculateWeight() {
         Bag bag1 = new Bag("bag1", 0.5, "white");
         OneItem item1 = new OneItem("cat", 7, "black", "fluffy", "cute");
@@ -21,6 +42,8 @@ class BagTest {
             bag1.pushItem(new OneItem("brick", 5, "grey"));
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
+        } catch (AddTheSameException e) {
+            e.printStackTrace();
         }
         assertEquals(12.5, bag1.getWeight());
         try {
@@ -42,6 +65,8 @@ class BagTest {
             bag1.pushItem(new OneItem("book", 1, "grey"));
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
+        } catch (AddTheSameException e) {
+            e.printStackTrace();
         }
 
         bag1.takeItem();
@@ -68,6 +93,8 @@ class BagTest {
             bag1.pushItem(item2);
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
+        } catch (AddTheSameException e) {
+            e.printStackTrace();
         }
 
         // difference?
@@ -100,6 +127,8 @@ class BagTest {
             bag1.pushItem(new OneItem("vase", 1, "transparent"));
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
+        } catch (AddTheSameException e) {
+            e.printStackTrace();
         }
         try {
             bag1.removeItem();
@@ -113,6 +142,8 @@ class BagTest {
             System.err.print(e.getMessage());
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
+        } catch (AddTheSameException e) {
+            e.printStackTrace();
         }
         assertEquals(0, bag1.getCurrentSize());
     }

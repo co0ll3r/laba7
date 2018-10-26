@@ -29,7 +29,7 @@ class BoxTest {
                     (new OneItem("spoon", 0.0015, "engraved", "small")));
             assertThrows(ItemStoreException.class, () -> box1.pushItem
                     (new OneItem("spoon", 0.0015, "engraved", "small", "flag")));
-        } catch (ItemAlreadyPlacedException | ItemStoreException e) {
+        } catch (ItemAlreadyPlacedException | ItemStoreException | AddTheSameException e) {
             e.printStackTrace();
         }
         assertEquals(11.451, box1.getWeight());
@@ -46,7 +46,7 @@ class BoxTest {
     }
 
     @Test
-    void closeBox() {
+    void closeBox() throws AddTheSameException {
         Box box = new Box("crate", 1.1, 3, 15, "wooden");
         box.getInfo();
         var item1 = new OneItem("book", 0.451, "flat", "1984");
@@ -58,7 +58,7 @@ class BoxTest {
             box.pushItem(item1);
             box.pushItem(item2);
             box.pushItem(item3);
-        } catch (ItemAlreadyPlacedException | ItemStoreException e) {
+        } catch (ItemAlreadyPlacedException | ItemStoreException | AddTheSameException e) {
             e.printStackTrace();
         }
         box.closeBox();
@@ -71,10 +71,8 @@ class BoxTest {
             box.openBox();
 //            if (!box.checkIsBoxClosed())
                 box.takeItem().getInfo();
-        } catch (ItemAlreadyPlacedException | ItemStoreException | ItemIsEmptyException e) {
+        } catch (ItemAlreadyPlacedException | ItemStoreException | ItemIsEmptyException | CannotAccessTheContainer e) {
             e.printStackTrace();
-        } catch (CannotAccessTheContainer cannotAccessTheContainer) {
-            cannotAccessTheContainer.printStackTrace();
         }
     }
 

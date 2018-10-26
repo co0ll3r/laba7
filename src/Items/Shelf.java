@@ -29,7 +29,10 @@ public class Shelf extends Container {
 
     // make flat constraints
     @Override
-    public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
+    public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, AddTheSameException {
+        if (newItem == this) {
+            throw new AddTheSameException("You're trying to the item the same item!");
+        }
         for (String a :
                 newItem.getProperties()) {
             if (a.equalsIgnoreCase("flat")) {
