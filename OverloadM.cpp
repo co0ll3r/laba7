@@ -26,7 +26,7 @@ std::istream& operator>>(std::istream& in, RECORD& a){
 		std::cout << "Введите количество компьютеров на складе: ";
 		in >> a.CompInStock;
 		if (std::cin.fail())
-			throw InputErr(" Вы ввели строковый символ (при добавлении предмета).");
+			throw InputErr("\n Вы ввели строковый символ (при добавлении предмета). Из-за чего вы были выброшены в главное меню!");
 	}	
 	catch (InputErr &e){
 		int i = 0;
@@ -34,8 +34,8 @@ std::istream& operator>>(std::istream& in, RECORD& a){
 			e.outputErr();
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // cin.ignore() - очистить один символ из входного буфера, <streamsize>::max - говорит о том, что очищаем весь поток
-//			e.inputAgainMessage(++i);
-			std::cin >> i;
+			e.inputAgainMessage(++i);
+//			std::cin >> i;
 		}
 	//	std::cout << "\033c"; // clear console 
 	}
