@@ -18,7 +18,11 @@ public class Shelf extends Container {
     public void removeItem() throws ItemIsEmptyException {
         //   getItemContainer().remove(index);
         super.removeItem();
-        changeWeight(-(getItemContainer().get(getCurrentSize()).getWeight()));
+        OneItem itemRem = getItemContainer().get(getCurrentSize());
+        //There could be some problems!
+        if (itemRem instanceof Box)
+            ((Box) itemRem).openBox();
+        changeWeight(-(itemRem.getWeight()));
         getItemContainer().remove(getCurrentSize());
 //        calculateWeight();
     }
