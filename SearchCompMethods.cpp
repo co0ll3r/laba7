@@ -42,10 +42,9 @@ void SearchComp::OutputInFile(){
 	std::cin >> file;
 	std::ofstream fout;
 	fout.open(file);
-	if (fout.fail()){
-		std::cout << file << " не удалось открыть файл\n";
-		return;
-	}
+	if (fout.fail())
+		throw OpenFileErr("Не удалось сохранить файл под именем: " + file, false);
+
 	fout << std::setfill('-') << std::setw(129) << "\n" <<
 	     "|Номер| Цена | Кол. |                 Процессор                    |              Видеокарта           | ОЗУ | Размер жесткого |\n" <<
              "|     |      |      |----------------------------------------------|-----------------------------------|     |                 |\n" << 
@@ -86,7 +85,7 @@ void SearchComp::SortProcTypeAndClock(){
 void SearchComp::SortRAM(){
 	std::cout << "Сортировка по ОЗУ: \n";
 	bool flag;
-	unsigned n = size; 
+	unsigned n = size;
 	do{
 		flag = false;
 		for (unsigned i = 1; i < n; i++)
@@ -102,11 +101,6 @@ void SearchComp::SortRAM(){
 }
 
 void SearchComp::SearchPrice(){
-	if (CapabilitiesComp == NULL)
-	{
-		std::cout << "Загрузите массив \n";
-		return;
-	}
 	double BottomBorder, TopBorder;
 	std::cout << "Введите нижнюю границу цены(нестрогое): ";
 	std::cin >> BottomBorder;
@@ -122,12 +116,12 @@ void SearchComp::SearchPrice(){
 	}
 	// Есть два варианта: 1) вектор собирающий индексы; 2) перераспределение памяти каждыый раз
 
-	if (CollectIndexes.size() == 0)
+	if (CollectIndexes.empty())
 	{
 		std::cout << "Не найдено!\n";
 		return;
 	}
-	if (SearchResult != NULL)
+	if (SearchResult != nullptr)
 		delete [] SearchResult;
 	size = CollectIndexes.size();
 	std::cout << size<< " size\n";
@@ -144,11 +138,8 @@ void SearchComp::SearchPrice(){
 
 
 void SearchComp::SearchHddVolume(){
-	if (CapabilitiesComp == NULL)
-	{
-		std::cout << "Загрузите массив \n";
-		return;
-	}
+	if (CapabilitiesComp == nullptr)
+		throw EmptyMassive("поиске по объему жесткого диска.")
 	double BottomBorder, TopBorder;
 	std::cout << "Введите нижнюю границу размера памяти(нестрогое): ";
 	std::cin >> BottomBorder;
@@ -182,11 +173,8 @@ void SearchComp::SearchHddVolume(){
 }
 
 void SearchComp::SearchBrandTypeRamETC(){
-	if (CapabilitiesComp == NULL)
-	{
-		std::cout << "Загрузите массив \n";
-		return;
-	}
+	if (CapabilitiesComp == nullptr)
+		throw EmptyMassive("поиске по всем полям.")
 	std::string NameOfProc, TypeOfProc;
 	double BottomBorder, TopBorder, BBRAM, TBRAM, BBVideo, TBVideo;
 	std::cout << "Введите название марки процессора ";
