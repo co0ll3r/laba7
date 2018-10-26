@@ -8,7 +8,7 @@ class BoxTest {
 
     @Test
     void takeItem() {
-        Box box1 = new Box("shelf", 1.5, 4, 20, "flat", "wooden");
+        Box box1 = new Box("box", 1.5, 4, 20, "flat", "wooden");
         var item1 = new OneItem("book", 0.451, "flat", "1984");
         var item2 = new OneItem("laptop", 2.5, "flat", "asus");
         var item3 = new OneItem("dvd-player", 4, "flat");
@@ -44,6 +44,33 @@ class BoxTest {
     }
 
     @Test
-    void removeItem() {
+    void closeBox() {
+       Box box = new Box("box", 1.1, 3, 15);
+        var item1 = new OneItem("book", 0.451, "flat", "1984");
+        var item2 = new OneItem("laptop", 2.5, "flat", "asus");
+        var item3 = new OneItem("dvd-player", 4, "flat");
+        var item4 = new OneItem("laptop", 2.5, "flat", "asus");
+        var item5 = new OneItem("dvd-player", 4, "flat");
+        try{
+            box.pushItem(item1);
+            box.pushItem(item2);
+            box.pushItem(item3);
+        } catch (ItemAlreadyPlacedException | ItemStoreException e) {
+            e.printStackTrace();
+        }
+        box.closeBox();
+        if (!box.checkIsBoxClosed())
+           box.takeItem().getInfo();
+        try{
+            box.pushItem(item4);
+            box.pushItem(item5);
+            box.removeItem();
+            box.openBox();
+            if (!box.checkIsBoxClosed())
+                box.takeItem().getInfo();
+        } catch (ItemAlreadyPlacedException | ItemStoreException | ItemIsEmptyException e) {
+            e.printStackTrace();
+        }
+
     }
 }

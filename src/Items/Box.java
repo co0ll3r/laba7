@@ -21,6 +21,7 @@ public class Box extends Container {
     // Maybe make some abstract or interface?
     // it's copy of the takeItem() from the Bag class
     // fix null return!
+    // or use exceptions?
     @Override
     OneItem takeItem() {
         if (checkIsBoxClosed()) {
