@@ -42,10 +42,9 @@ void workComputers::testCopyConstructor(){
 
 void workComputers::Add_comp(){
 	RECORD* CopyCapComp = new RECORD[size + 1];
-	if (CopyCapComp == NULL)
+	if (CopyCapComp == nullptr)
 	{
-		std::cout << "Ошибка выделения памяти при добавлении компьютера!\n";
-		return;//exit(-1);
+	    throw MemoryErr("Ошибка выделения памяти при добавлении компьютера!\n");
 	}
 	for (int j = 0; j < size; j++)
 		if (CapabilitiesComp != NULL)
@@ -55,24 +54,19 @@ void workComputers::Add_comp(){
 		delete [] CapabilitiesComp;
 	CapabilitiesComp = CopyCapComp;
 	size++;
-	CopyCapComp = NULL;
+	CopyCapComp = nullptr;
 }
 
 void workComputers::Delete_comp(){
-	if (CapabilitiesComp == NULL)
-	{
-		std::cout << "Загрузите данные(массив элементов), т.к. массив пуст";
-		return;	
-	}
+	if (CapabilitiesComp == nullptr)
+		throw EmptyMassive("удалении строки.");
 	int n;
 	char ch;
 	std::cout << *this;
 	std::cout << "Введите номер строки для удаления: ";
 	std::cin >> n;
-	if (n < 1 || n > size){
-		std::cout << " нет такой строки\n";
-		return;
-	}
+	if (n < 1 || n > size)
+		throw InputErr(" Нет такой строки\n");
 	n--;
 	std::cout << " удалить строку(press y):";
 	std::cin >> ch;
@@ -83,10 +77,10 @@ void workComputers::Delete_comp(){
 			CopyCapComp[i] = CapabilitiesComp[i];
 		for (i = n + 1, j = n; i < size; i++, j++)
 			CopyCapComp[j] = CapabilitiesComp[i];
-		if (CapabilitiesComp != NULL)
+		if (CapabilitiesComp != nullptr)
 			delete [] CapabilitiesComp;
 		CapabilitiesComp = CopyCapComp;
-		CopyCapComp = NULL;
+		CopyCapComp = nullptr;
 		size--;
 	}
 }
