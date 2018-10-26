@@ -5,6 +5,24 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ShelfTest {
+    @Test
+    void addBoxesOnBoxes(){
+        Shelf shelf1 = new Shelf("shelf", 1.5, 4, 20, "flat", "wooden");
+        Box box1 = new Box("box", 1.5, 4, 20, "flat", "wooden");
+        Box box2 = new Box("box2", 1.5, 4, 20, "flat", "wooden");
+        Box box3 = new Box("box3", 1.5, 4, 20, "flat", "wooden");
+        var item1 = new OneItem("book", 0.451, "flat", "1984");
+        try {
+            box1.addItem(item1);
+            shelf1.addItem(box1);
+            shelf1.addItem(box2);
+            shelf1.addItem(box3);
+        } catch (ItemAlreadyPlacedException | ItemStoreException e) {
+            e.printStackTrace();
+        }
+        shelf1.getInfo();
+
+    }
 
     @Test
     void calculateWeight() {
