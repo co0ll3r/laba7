@@ -1,6 +1,7 @@
 package Tests;
 
 import Items.*;
+import Items.ItemExceptions.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,5 +1,7 @@
 package Items;
 
+import Items.ItemExceptions.*;
+
 import java.util.*;
 
 public class OneItem {
@@ -25,7 +27,7 @@ public class OneItem {
         isAdded = false;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
@@ -108,7 +110,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
 
     void addItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, CannotAccessTheContainer, AddTheSameException {
         if (newItem == this)
-            throw new AddTheSameException("You're trying to the item the same item!");
+            throw new AddTheSameException("You're trying to add an item the same item!");
         if(checkIsContainerClosed())
             throw new CannotAccessTheContainer("You can't add this item. ", this.getName());
         if (newItem.isAdded())

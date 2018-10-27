@@ -1,6 +1,7 @@
 package Tests;
 
 import Items.*;
+import Items.ItemExceptions.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,6 +24,7 @@ class BoxTest {
         } catch (ItemAlreadyPlacedException | CannotAccessTheContainer | ItemStoreException | AddTheSameException e) {
             e.printStackTrace();
         }
+        assertThrows(AddTheSameException.class, () -> box2.pushItem(box2));
         assertThrows(CannotAccessTheContainer.class, () -> box2.pushItem(box1));
     }
 

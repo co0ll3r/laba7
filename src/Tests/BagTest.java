@@ -1,6 +1,7 @@
 package Tests;
 
 import Items.*;
+import Items.ItemExceptions.*;
 
 import java.util.ArrayList;
 

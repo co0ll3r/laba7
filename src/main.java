@@ -1,4 +1,8 @@
 import Items.*;
+import Items.ItemExceptions.AddTheSameException;
+import Items.ItemExceptions.CannotAccessTheContainer;
+import Items.ItemExceptions.ItemAlreadyPlacedException;
+import Items.ItemExceptions.ItemStoreException;
 
 public class main {
     public static void mainFunc(String[] args) {

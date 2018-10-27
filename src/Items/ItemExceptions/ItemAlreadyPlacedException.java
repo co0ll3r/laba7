@@ -1,8 +1,7 @@
-package Items;
+package Items.ItemExceptions;
 
 public class ItemAlreadyPlacedException extends Exception {
-    ItemAlreadyPlacedException(){
+    public ItemAlreadyPlacedException(){
         super();
     }
-
 }

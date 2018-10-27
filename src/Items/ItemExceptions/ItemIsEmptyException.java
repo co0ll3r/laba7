@@ -1,7 +1,7 @@
-package Items;
+package Items.ItemExceptions;
 
 public class ItemIsEmptyException extends Exception{
-    ItemIsEmptyException(){
+    public ItemIsEmptyException(){
         super("You can't delete items in an empty container!");
     }
 }

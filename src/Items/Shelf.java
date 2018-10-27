@@ -1,5 +1,7 @@
 package Items;
 
+import Items.ItemExceptions.*;
+
 public class Shelf extends Container {
     public Shelf(String name, double weight, String... properties) {
         super(name, weight, properties);

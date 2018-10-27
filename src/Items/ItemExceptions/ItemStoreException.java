@@ -1,22 +1,20 @@
-package Items;
+package Items.ItemExceptions;
+
+import Items.OneItem;
 
 public class ItemStoreException extends Exception {
-    ItemStoreException(){
+/*    ItemStoreException(){
         super();
     }
     ItemStoreException(String message){
         super(message);
-    }
-    ItemStoreException(OneItem item, String message){
+    }*/
+    public ItemStoreException(OneItem item, String message){
         super(message);
         System.err.println(item.getName() + " cannot be added to the container, because of overflow!");
     }
-    ItemStoreException(String message, OneItem item){
+    public ItemStoreException(String message, OneItem item){
         super(message);
         System.err.println(item.getName() + " with weight - " + item.getWeight() + ", cannot be added! Too heavy.");
-    }
-
-    ItemStoreException(String message, Throwable err){
-        super(message, err);
     }
 }

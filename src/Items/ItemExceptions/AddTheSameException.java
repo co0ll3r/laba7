@@ -1,7 +1,7 @@
-package Items;
+package Items.ItemExceptions;
 
 public class AddTheSameException extends Exception{
-    AddTheSameException(String message){
+    public AddTheSameException(String message){
         super(message);
     }
 }
