@@ -30,24 +30,17 @@ public class Shelf extends Container {
     // make flat constraints
     @Override
     public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, AddTheSameException, CannotAccessTheContainer {
-        if (newItem == this) {
+/*        if (newItem == this)
             throw new AddTheSameException("You're trying to the item the same item!");
-        }
-        for (String a :
+ */       for (String a :
                 newItem.getProperties()) {
             if (a.equalsIgnoreCase("flat")) {
-/*                if (newItem instanceof Box){
-                    ((Box) newItem).closeBox();
-                }*/
                 addItem(newItem);
                 changeWeight(newItem.getWeight());
                 return;
             }
         }
         System.err.println("Can't add not flat item!");
-        //  getItemContainer().add(newItem);
-//        calculateWeight();
-//        if (getProperties().contains("flat")) {  // Doesn't work
     }
 
     @Override

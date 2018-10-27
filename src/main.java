@@ -1,9 +1,7 @@
 import Items.*;
 
-import java.util.HashSet;
-
 public class main {
-    public static void main(String[] args) {
+    public static void mainFunc(String[] args) {
         OneItem abc = new OneItem("toy", 2, "red", "wide", "smart");
         Bag bag1 = new Bag("bag", 0.5, "grey", "doted");
         try {

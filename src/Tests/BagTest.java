@@ -1,4 +1,6 @@
-package Items;
+package Tests;
+
+import Items.*;
 
 import java.util.ArrayList;
 
@@ -12,7 +14,7 @@ class BagTest {
     }
 
     @org.junit.jupiter.api.Test
-    void putInTheSame(){
+    void putInTheSame() {
         Bag bag1 = new Bag("bag1", 0.5, "white");
         Bag bag2 = new Bag("bag1", 0.5, "white");
         Bag bag3 = new Bag("bag1", 0.5, "white");
@@ -101,9 +103,7 @@ class BagTest {
         assertThrows(ItemStoreException.class, () -> bag1.pushItem(item4));
         assertThrows(ItemAlreadyPlacedException.class, () -> bag2.pushItem(uniqueItem));
         assertThrows(ItemAlreadyPlacedException.class, () -> bag2.pushItem(item2));
-        assertThrows(ItemStoreException.class, () -> {
-            bag2.pushItem(item3);
-        });
+        assertThrows(ItemStoreException.class, () -> bag2.pushItem(item3));
 
         try {
             bag2.removeItem();
@@ -184,6 +184,6 @@ class BagTest {
             a.getInfo();
         }
         System.out.println();
-        System.out.println( bag.toString());
+        System.out.println(bag.toString());
     }
 }

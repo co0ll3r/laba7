@@ -29,7 +29,7 @@ public class OneItem {
         return name;
     }
 
-    double getWeight() {
+    public double getWeight() {
         return weight;
     }
 
@@ -102,11 +102,13 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
         return itemContainer;
     }
 
-    int getCurrentSize() {
+    public int getCurrentSize() {
         return currentSize;
     }
 
-    void addItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, CannotAccessTheContainer {
+    void addItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, CannotAccessTheContainer, AddTheSameException {
+        if (newItem == this)
+            throw new AddTheSameException("You're trying to the item the same item!");
         if(checkIsContainerClosed())
             throw new CannotAccessTheContainer("You can't add this item. ", this.getName());
         if (newItem.isAdded())
@@ -145,7 +147,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
     /**
      * Polite version of findByName without exceptions
      *
-     * @param name
+     * @param name  String not null
      * @return true if the container has the equal name, otherwise return false, even if the container is empty
      */
     public boolean containItem(String name) {
@@ -165,7 +167,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
     /**
      * Use
      *
-     * @param name
+     * @param name String not null
      * @return OneItem or NULL if the container doesn't have an item with such the name
      */
     public OneItem findByName(String name) throws ItemIsEmptyException {
@@ -180,7 +182,6 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
                 return a;
             }
         }
-        ;
         System.out.println("The item hasn't found");
         return null;
     }
@@ -202,11 +203,11 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
      * when you're trying to add an item to a container, that's holds in an another container.
      *
      */
-    void openContainer() {
+    public void openContainer() {
         isContainerClosed = false;
     }
 
-    void closeContainer() {
+    public void closeContainer() {
         isContainerClosed = true;
     }
     boolean checkIsContainerClosed() {
@@ -216,7 +217,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
 
     @Override
     public Iterator<OneItem> iterator() {
-        return new Iterator<OneItem>() {
+        return new Iterator<>() {
             private int currentIndex = 0;
 
             @Override

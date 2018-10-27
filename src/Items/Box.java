@@ -7,18 +7,18 @@ public class Box extends Container {
 //    private boolean isBoxClosed = false;
 
 
-    Box(String name, double weight, String... properties) {
+    public Box(String name, double weight, String... properties) {
         super(name, weight, properties);
         getProperties().add("flat");
     }
 
     // how to add flat!!??
-    Box(String name, double weight, int maxItems, int maxWeight, String... properties) {
+    public Box(String name, double weight, int maxItems, int maxWeight, String... properties) {
         super(name, weight, maxItems, maxWeight, properties);
         getProperties().add("flat");
     }
 
-    Box(String name, double weight, ArrayList<OneItem> newContainer, int maxItems, int maxWeight, String... properties) {
+    public Box(String name, double weight, ArrayList<OneItem> newContainer, int maxItems, int maxWeight, String... properties) {
         super(name, weight, newContainer, maxItems, maxWeight, properties);
         getProperties().add("flat");
     }
@@ -28,7 +28,7 @@ public class Box extends Container {
     // fix null return!
     // or use exceptions?
     @Override
-    OneItem takeItem() throws CannotAccessTheContainer {
+    public OneItem takeItem() throws CannotAccessTheContainer {
         if (checkIsContainerClosed()) {
             System.out.println("The box is closed, can't take anything.");
             throw new CannotAccessTheContainer("You're trying to get an item from the closed box");
@@ -38,7 +38,7 @@ public class Box extends Container {
 
     // it's copy of the removeItem() from the Bag class
     @Override
-    void removeItem() throws ItemIsEmptyException, CannotAccessTheContainer {
+    public void removeItem() throws ItemIsEmptyException, CannotAccessTheContainer {
 /*        if (checkIsContainerClosed()) {
             System.out.println("The box is closed, can't remove anything.");
         } else {*/
@@ -55,10 +55,9 @@ public class Box extends Container {
 
     // you can make: if closed, then transform into a stack with two items, the first one is the closed box;
     @Override
-    void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, AddTheSameException, CannotAccessTheContainer {
-        if (newItem == this) {
-            throw new AddTheSameException("You're trying to the item the same item!");
-        }
+    public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, AddTheSameException, CannotAccessTheContainer {
+/*        if (newItem == this)
+            throw new AddTheSameException("You're trying to the item the same item!");*/
 /*        if (checkIsContainerClosed()){
             System.out.println("The box is closed, can't add anything.");
         } else {*/

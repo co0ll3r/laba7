@@ -1,5 +1,6 @@
-package Items;
+package Tests;
 
+import Items.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,11 +14,11 @@ class ShelfTest {
         Box box3 = new Box("box3", 1.5, 4, 20, "flat", "wooden");
         var item1 = new OneItem("book", 0.451, "flat", "1984");
         try {
-            box1.addItem(item1);
-            shelf1.addItem(box1);
-            shelf1.addItem(box2);
-            shelf1.addItem(box3);
-        } catch (ItemAlreadyPlacedException | ItemStoreException | CannotAccessTheContainer e) {
+            box1.pushItem(item1);
+            shelf1.pushItem(box1);
+            shelf1.pushItem(box2);
+            shelf1.pushItem(box3);
+        } catch (ItemAlreadyPlacedException | ItemStoreException | CannotAccessTheContainer | AddTheSameException e) {
             e.printStackTrace();
         }
         shelf1.getInfo();
