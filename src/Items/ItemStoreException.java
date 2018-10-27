@@ -15,6 +15,7 @@ public class ItemStoreException extends Exception {
         super(message);
         System.err.println(item.getName() + " with weight - " + item.getWeight() + ", cannot be added! Too heavy.");
     }
+
     ItemStoreException(String message, Throwable err){
         super(message, err);
     }

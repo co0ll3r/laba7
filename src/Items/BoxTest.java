@@ -2,14 +2,12 @@ package Items;
 
 import org.junit.jupiter.api.Test;
 
-import javax.naming.CannotProceedException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoxTest {
 
     @Test
-    void addTheSame(){
+    void addTheSame() {
 
     }
 
@@ -28,13 +26,14 @@ class BoxTest {
             box1.pushItem(item3);
             assertThrows(ItemStoreException.class, () -> box1.pushItem(item4));
             box1.pushItem(item6);
+            box1.getInfo();
             assertThrows(ItemStoreException.class, () -> box1.pushItem(item5));
             assertThrows(ItemAlreadyPlacedException.class, () -> box1.pushItem(item1));
             assertThrows(ItemStoreException.class, () -> box1.pushItem
                     (new OneItem("spoon", 0.0015, "engraved", "small")));
             assertThrows(ItemStoreException.class, () -> box1.pushItem
                     (new OneItem("spoon", 0.0015, "engraved", "small", "flag")));
-        } catch (ItemAlreadyPlacedException | ItemStoreException | AddTheSameException e) {
+        } catch (ItemAlreadyPlacedException | ItemStoreException | AddTheSameException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
         assertEquals(11.451, box1.getWeight());
@@ -43,15 +42,16 @@ class BoxTest {
             box1.removeItem();
             box1.removeItem();
             box1.removeItem();
-        } catch (ItemIsEmptyException e) {
+        } catch (ItemIsEmptyException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
 //        shelf1.getInfo();
         assertThrows(ItemIsEmptyException.class, box1::removeItem);
+        assertEquals(1.5, box1.getWeight(), 0.000001);
     }
 
     @Test
-    void closeBox() throws AddTheSameException {
+    void closeBox() {
         Box box = new Box("crate", 1.1, 3, 15, "wooden");
         box.getInfo();
         var item1 = new OneItem("book", 0.451, "flat", "1984");
@@ -63,22 +63,25 @@ class BoxTest {
             box.pushItem(item1);
             box.pushItem(item2);
             box.pushItem(item3);
-        } catch (ItemAlreadyPlacedException | ItemStoreException | AddTheSameException e) {
+        } catch (ItemAlreadyPlacedException | ItemStoreException | AddTheSameException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
-        box.closeBox();
+        System.out.println();
+        box.getInfo();
+        box.closeContainer();
 //        if (!box.checkIsBoxClosed())
-            assertThrows(CannotAccessTheContainer.class, () -> box.takeItem().getInfo());
+        assertThrows(CannotAccessTheContainer.class, () -> box.takeItem().getInfo());
+        assertThrows(CannotAccessTheContainer.class, () -> box.pushItem(item4));
+        assertThrows(CannotAccessTheContainer.class, () -> box.pushItem(item5));
+        assertThrows(CannotAccessTheContainer.class, box::removeItem);
         try {
-            box.pushItem(item4);
-            box.pushItem(item5);
-            box.removeItem();
-            box.openBox();
+            box.openContainer();
 //            if (!box.checkIsBoxClosed())
-                box.takeItem().getInfo();
-        } catch (ItemAlreadyPlacedException | ItemStoreException | ItemIsEmptyException | CannotAccessTheContainer e) {
+            box.takeItem().getInfo();
+        } catch (CannotAccessTheContainer e) {
             e.printStackTrace();
         }
+        assertEquals(8.051, box.getWeight(), 0.00001);
     }
 
     @Test

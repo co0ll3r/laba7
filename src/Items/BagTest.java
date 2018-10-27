@@ -24,9 +24,7 @@ class BagTest {
             assertThrows(AddTheSameException.class, () -> bag1.pushItem(bag1));
             bag1.pushItem(bag2);
             bag2.pushItem(bag1);
-        } catch (ItemAlreadyPlacedException | ItemStoreException e) {
-            e.printStackTrace();
-        } catch (AddTheSameException e) {
+        } catch (ItemAlreadyPlacedException | ItemStoreException | AddTheSameException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
         bag1.getInfo();
@@ -42,14 +40,14 @@ class BagTest {
             bag1.pushItem(new OneItem("brick", 5, "grey"));
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
-        } catch (AddTheSameException e) {
+        } catch (AddTheSameException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
         assertEquals(12.5, bag1.getWeight());
         try {
             bag1.removeItem();
             bag1.removeItem();
-        } catch (ItemIsEmptyException e) {
+        } catch (ItemIsEmptyException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
         assertEquals(0.5, bag1.getWeight());
@@ -65,7 +63,7 @@ class BagTest {
             bag1.pushItem(new OneItem("book", 1, "grey"));
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
-        } catch (AddTheSameException e) {
+        } catch (AddTheSameException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
 
@@ -75,6 +73,8 @@ class BagTest {
             bag1.removeItem();
         } catch (ItemIsEmptyException e) {
             e.getMessage();
+        } catch (CannotAccessTheContainer cannotAccessTheContainer) {
+            cannotAccessTheContainer.printStackTrace();
         }
         bag1.takeItem();
     }
@@ -93,7 +93,7 @@ class BagTest {
             bag1.pushItem(item2);
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
-        } catch (AddTheSameException e) {
+        } catch (AddTheSameException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
 
@@ -109,6 +109,8 @@ class BagTest {
             bag2.removeItem();
         } catch (ItemIsEmptyException a) {
             System.err.println(a.getMessage());
+        } catch (CannotAccessTheContainer cannotAccessTheContainer) {
+            cannotAccessTheContainer.printStackTrace();
         }
 
         assertThrows(ItemIsEmptyException.class, bag2::removeItem);
@@ -127,7 +129,7 @@ class BagTest {
             bag1.pushItem(new OneItem("vase", 1, "transparent"));
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
-        } catch (AddTheSameException e) {
+        } catch (AddTheSameException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
         try {
@@ -142,7 +144,7 @@ class BagTest {
             System.err.print(e.getMessage());
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
-        } catch (AddTheSameException e) {
+        } catch (AddTheSameException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
         assertEquals(0, bag1.getCurrentSize());

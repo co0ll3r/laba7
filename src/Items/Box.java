@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Box extends Container {
-    private boolean isBoxClosed = false;
+//    private boolean isBoxClosed = false;
 
 
     Box(String name, double weight, String... properties) {
@@ -29,7 +29,7 @@ public class Box extends Container {
     // or use exceptions?
     @Override
     OneItem takeItem() throws CannotAccessTheContainer {
-        if (checkIsBoxClosed()) {
+        if (checkIsContainerClosed()) {
             System.out.println("The box is closed, can't take anything.");
             throw new CannotAccessTheContainer("You're trying to get an item from the closed box");
         }
@@ -38,10 +38,10 @@ public class Box extends Container {
 
     // it's copy of the removeItem() from the Bag class
     @Override
-    void removeItem() throws ItemIsEmptyException {
-        if (checkIsBoxClosed()) {
+    void removeItem() throws ItemIsEmptyException, CannotAccessTheContainer {
+/*        if (checkIsContainerClosed()) {
             System.out.println("The box is closed, can't remove anything.");
-        } else {
+        } else {*/
             super.removeItem();
             int index = new Random().nextInt(getCurrentSize() + 1);
             OneItem itemForDelete = getItemContainer().get(index);
@@ -51,37 +51,36 @@ public class Box extends Container {
 
             changeWeight(-getItemContainer().get(index).getWeight());
             getItemContainer().remove(index);
-        }
     }
 
     // you can make: if closed, then transform into a stack with two items, the first one is the closed box;
     @Override
-    void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, AddTheSameException {
+    void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, AddTheSameException, CannotAccessTheContainer {
         if (newItem == this) {
             throw new AddTheSameException("You're trying to the item the same item!");
         }
-        if (checkIsBoxClosed()){
+/*        if (checkIsContainerClosed()){
             System.out.println("The box is closed, can't add anything.");
-        } else {
-            addItem(newItem);
-            changeWeight(newItem.getWeight());
-        }
+        } else {*/
+        addItem(newItem);
+        changeWeight(newItem.getWeight());
     }
 
-    void openBox() {
+    /*
+    void openContainer() {
         isBoxClosed = false;
     }
 
-    void closeBox() {
+    void closeContainer() {
         isBoxClosed = true;
     }
-
-    boolean checkIsBoxClosed() {
+    boolean checkIsContainerClosed() {
         return isBoxClosed;
     }
+*/
 
     @Override
     public String toString() {
-        return "Box is closed?: " + checkIsBoxClosed() + super.toString();
+        return "Box is closed?: " + checkIsContainerClosed() + " " + super.toString();
     }
 }

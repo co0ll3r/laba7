@@ -15,13 +15,13 @@ public class Shelf extends Container {
     }
 
     @Override
-    public void removeItem() throws ItemIsEmptyException {
+    public void removeItem() throws ItemIsEmptyException, CannotAccessTheContainer {
         //   getItemContainer().remove(index);
         super.removeItem();
         OneItem itemRem = getItemContainer().get(getCurrentSize());
         //There could be some problems!
-        if (itemRem instanceof Box)
-            ((Box) itemRem).openBox();
+/*        if (itemRem instanceof Box)
+            ((Box) itemRem).openBox();*/
         changeWeight(-(itemRem.getWeight()));
         getItemContainer().remove(getCurrentSize());
 //        calculateWeight();
@@ -29,16 +29,16 @@ public class Shelf extends Container {
 
     // make flat constraints
     @Override
-    public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, AddTheSameException {
+    public void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, AddTheSameException, CannotAccessTheContainer {
         if (newItem == this) {
             throw new AddTheSameException("You're trying to the item the same item!");
         }
         for (String a :
                 newItem.getProperties()) {
             if (a.equalsIgnoreCase("flat")) {
-                if (newItem instanceof Box){
+/*                if (newItem instanceof Box){
                     ((Box) newItem).closeBox();
-                }
+                }*/
                 addItem(newItem);
                 changeWeight(newItem.getWeight());
                 return;

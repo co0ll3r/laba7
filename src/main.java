@@ -34,7 +34,7 @@ public class main {
             shelf1.getInfo();
         } catch (ItemAlreadyPlacedException | ItemStoreException a) {
             System.err.println(a.getMessage());
-        } catch (AddTheSameException e) {
+        } catch (AddTheSameException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
 

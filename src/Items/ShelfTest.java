@@ -17,7 +17,7 @@ class ShelfTest {
             shelf1.addItem(box1);
             shelf1.addItem(box2);
             shelf1.addItem(box3);
-        } catch (ItemAlreadyPlacedException | ItemStoreException e) {
+        } catch (ItemAlreadyPlacedException | ItemStoreException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
         shelf1.getInfo();
@@ -43,7 +43,7 @@ class ShelfTest {
             assertThrows(ItemAlreadyPlacedException.class, () -> shelf1.pushItem(item1));
             shelf1.pushItem(new OneItem("spoon", 0.0015, "engraved", "small"));
             shelf1.pushItem(new OneItem("spoon", 0.0015, "engraved", "small", "flag"));
-        } catch (ItemAlreadyPlacedException | ItemStoreException | AddTheSameException e) {
+        } catch (ItemAlreadyPlacedException | ItemStoreException | AddTheSameException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
         assertEquals(11.451, shelf1.getWeight());
@@ -57,7 +57,7 @@ class ShelfTest {
             assertEquals(1.951, shelf1.getWeight(), 0.00001);
             shelf1.removeItem();
             assertEquals(1.5, shelf1.getWeight(), 0.00001);
-        } catch (ItemIsEmptyException e) {
+        } catch (ItemIsEmptyException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
         shelf1.getInfo();
@@ -77,7 +77,7 @@ class ShelfTest {
         try {
             box1.pushItem(item1);
             box1.pushItem(item2);
-        } catch (ItemAlreadyPlacedException | AddTheSameException | ItemStoreException e) {
+        } catch (ItemAlreadyPlacedException | AddTheSameException | ItemStoreException | CannotAccessTheContainer e) {
             e.printStackTrace();
         }
     }

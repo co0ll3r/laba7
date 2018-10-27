@@ -8,21 +8,6 @@ public class OneItem {
     private Set<String> properties;
     private boolean isAdded;
 
-    /*
-    // make weight = something or comment
-    public OneItem(String name, String... properties) {
-        this.name = name;
-        weight = 0;
-        //or null?
-        //weight = 1;
-        // check this if statement
-        if (properties.length > 0) {
-            this.properties = new HashSet<>();
-            this.properties.addAll(Arrays.asList(properties));
-        }
-    }
-    */
-
     public OneItem(String name, double weight, String... properties) {
         this.name = name;
         this.weight = weight;
@@ -94,6 +79,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
     private int currentSize;
     private int maxItems = 10;
     private int maxWeight = 15;
+    private boolean isContainerClosed = false;
 
     Container(String name, double weight, String... properties) {
         super(name, weight, properties);
@@ -120,24 +106,34 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
         return currentSize;
     }
 
-    void addItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException {
+    void addItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, CannotAccessTheContainer {
+        if(checkIsContainerClosed())
+            throw new CannotAccessTheContainer("You can't add this item. ", this.getName());
         if (newItem.isAdded())
             throw new ItemAlreadyPlacedException();
-        if (currentSize + 1 > maxItems)
+        if (currentSize >= maxItems)
             throw new ItemStoreException(newItem, this.getName() + " overflow! You're trying to put " + (currentSize + 1) +
                     " items in " + this.getName() + ", when the maximum is " + maxItems + ".");
         if (this.getWeight() + newItem.getWeight() > maxWeight)
             throw new ItemStoreException(this.getName() + " overweight! The weight would be " + (getWeight() +
                     newItem.getWeight()) + ", when the maximum is " + maxWeight + ".", newItem);
 
-        newItem.itemAdded();
-        currentSize++;
-        itemContainer.add(newItem);
+            newItem.itemAdded();
+            currentSize++;
+            itemContainer.add(newItem);
+            // not sure about exact this implementation
+            if (newItem instanceof Container)
+                ((Container) newItem).closeContainer();
     }
 
-    void removeItem() throws ItemIsEmptyException {
+    void removeItem() throws ItemIsEmptyException, CannotAccessTheContainer {
         if (getCurrentSize() == 0)
             throw new ItemIsEmptyException();
+        if (checkIsContainerClosed())
+            throw new CannotAccessTheContainer("You can't delete this item. ", this.getName());
+        // not sure about exact this implementation
+        if (getItemContainer().get(getCurrentSize() - 1) instanceof Container)
+            ((Container) getItemContainer().get(getCurrentSize())).openContainer();
         currentSize--;
     }
 
@@ -164,7 +160,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
         return false;
     }
 
-    // how to make a required null handler?
+    // make an exception
 
     /**
      * Use
@@ -201,6 +197,23 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
             System.out.println();
     }
 
+    /**
+     * three methods to resolve the problem,
+     * when you're trying to add an item to a container, that's holds in an another container.
+     *
+     */
+    void openContainer() {
+        isContainerClosed = false;
+    }
+
+    void closeContainer() {
+        isContainerClosed = true;
+    }
+    boolean checkIsContainerClosed() {
+        return isContainerClosed;
+    }
+     /** */
+
     @Override
     public Iterator<OneItem> iterator() {
         return new Iterator<OneItem>() {
@@ -227,7 +240,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
 
     abstract OneItem takeItem() throws CannotAccessTheContainer;
 
-    abstract void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, AddTheSameException;
+    abstract void pushItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, AddTheSameException, CannotAccessTheContainer;
 
 }
 
