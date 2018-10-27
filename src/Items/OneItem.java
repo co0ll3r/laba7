@@ -189,15 +189,6 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
         return null;
     }
 
-    // TOO slow, any another solutions?
-    public void calculateWeight() {
-        double calcWeight = 0;
-        for (OneItem a : getItemContainer()) {
-            calcWeight += a.getWeight();
-        }
-        this.setWeight(calcWeight);
-    }
-
     @Override
     public void getInfo() {
         super.getInfo();
