@@ -49,18 +49,5 @@ public class Bag extends Container {
     public String toString() {
         return super.toString();
     }
-
-    /* make an exception for the case outOfBoundException
-    public OneItem takeItem(int index) {
-        try {
-            return getItemContainer().get(index);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Index should be >= 0 and < currentSize");
-            e.getStackTrace();
-        }
-        // need something else
-        return getItemContainer().get(0);
-    }
-    */
 }
 
