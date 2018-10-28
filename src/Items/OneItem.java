@@ -72,7 +72,7 @@ public class OneItem {
     @Override
     public String toString() {
         return String.format("Name: %s; Weight: %.2f; " + (isAdded ? "Already added" : "Not added") +
-                "; properties: %s.", name, weight, properties.toString());
+                "; level - %d; properties: %s.", name, weight, properties.toString());
     }
 }
 
@@ -111,7 +111,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
     void addItem(OneItem newItem) throws ItemAlreadyPlacedException, ItemStoreException, CannotAccessTheContainer, AddTheSameException {
         if (newItem == this)
             throw new AddTheSameException("You're trying to add an item the same item!");
-        if(checkIsContainerClosed())
+        if (checkIsContainerClosed())
             throw new CannotAccessTheContainer("You can't add this item. ", this.getName());
         if (newItem.isAdded())
             throw new ItemAlreadyPlacedException();
@@ -122,12 +122,12 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
             throw new ItemStoreException(this.getName() + " overweight! The weight would be " + (getWeight() +
                     newItem.getWeight()) + ", when the maximum is " + maxWeight + ".", newItem);
 
-            newItem.itemAdded();
-            currentSize++;
-            itemContainer.add(newItem);
-            // not sure about exact this implementation
-            if (newItem instanceof Container)
-                ((Container) newItem).closeContainer();
+        newItem.itemAdded();
+        currentSize++;
+        itemContainer.add(newItem);
+        // not sure about exact this implementation
+        if (newItem instanceof Container)
+            ((Container) newItem).closeContainer();
     }
 
     void removeItem() throws ItemIsEmptyException, CannotAccessTheContainer {
@@ -149,7 +149,7 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
     /**
      * Polite version of findByName without exceptions
      *
-     * @param name  String not null
+     * @param name String not null
      * @return true if the container has the equal name, otherwise return false, even if the container is empty
      */
     public boolean containItem(String name) {
@@ -190,11 +190,23 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
 
     @Override
     public void getInfo() {
+        int level = 1;
+        getInfo(level);
+    }
+    // It made in such a way only for output hierarchy
+    void getInfo(int level) {
         super.getInfo();
-        System.out.print("items: " + getCurrentSize() + "\n\t");
+        System.out.print("items: " + getCurrentSize() + "\n");
         for (OneItem a :
                 itemContainer) {
-            a.getInfo();
+            for (int i = 0; i < level; i++)
+                System.out.print("\t");
+            if (a instanceof Container)
+                ((Container) a).getInfo(level + 1);
+            else {
+                a.getInfo();
+//                System.out.println();
+            }
         }
         if (getCurrentSize() != 0)
             System.out.println();
@@ -203,7 +215,6 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
     /**
      * three methods to resolve the problem,
      * when you're trying to add an item to a container, that's holds in an another container.
-     *
      */
     public void openContainer() {
         isContainerClosed = false;
@@ -212,10 +223,12 @@ abstract class Container extends OneItem implements Iterable<OneItem> {
     public void closeContainer() {
         isContainerClosed = true;
     }
+
     boolean checkIsContainerClosed() {
         return isContainerClosed;
     }
-     /** */
+
+    /** */
 
     @Override
     public Iterator<OneItem> iterator() {
