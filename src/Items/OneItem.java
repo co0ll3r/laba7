@@ -72,7 +72,7 @@ public class OneItem {
     @Override
     public String toString() {
         return String.format("Name: %s; Weight: %.2f; " + (isAdded ? "Already added" : "Not added") +
-                "; level - %d; properties: %s.", name, weight, properties.toString());
+                "; properties: %s.", name, weight, properties.toString());
     }
 }
 
