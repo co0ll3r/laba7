@@ -105,6 +105,7 @@ bool operator<(RECORD& a, RECORD& b){
 
 std::istream& operator>>(std::istream& in, workComputers& a){
 	RECORD* CopyCapComp = new RECORD[a.size + 1];
+//	RECORD* CopyCapComp = new RECORD[-1];
 	if (CopyCapComp == nullptr)
 		throw MemoryErr("\"перегруженная функция ввода\"");
 	/*
