@@ -40,8 +40,10 @@ void workComputers::testCopyConstructor(){
 	std::cout << eg2;
 }
 
+
+/*
 void workComputers::Add_comp(){
-	RECORD* CopyCapComp = new RECORD[size + 1];
+	RECORD* CopyCapComp = new RECORD[-1000000000000000000];
 	if (CopyCapComp == nullptr)
 	{
 	    throw MemoryErr("Ошибка выделения памяти при добавлении компьютера!\n");
@@ -56,6 +58,7 @@ void workComputers::Add_comp(){
 	size++;
 	CopyCapComp = nullptr;
 }
+*/
 
 void workComputers::Delete_comp(){
 	if (CapabilitiesComp == nullptr)
@@ -65,6 +68,18 @@ void workComputers::Delete_comp(){
 	std::cout << *this;
 	std::cout << "Введите номер строки для удаления: ";
 	std::cin >> n;
+	try{
+	if (std::cin.fail())
+		throw InputErr(" Вы ввели строковый символ, поэтому возникла ошибка!");
+	}catch (InputErr &e){
+			while(std::cin.fail()){
+				e.outputErr();
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // cin.ignore() - очистить один символ из входного буфера, <streamsize>::max - говорит о том, что очищаем весь поток
+				std::cout << "Введите число, соответствующее пункту таблицы для удаления.\n";
+				std::cin >> n;
+			}
+	}
 	if (n < 1 || n > size)
 		throw InputErr(" Нет такой строки\n");
 	n--;

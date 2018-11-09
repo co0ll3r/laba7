@@ -118,6 +118,9 @@ void GetMenu(Perechen& ExampleComputer, bool& exitFlag){
 			e.outputErr();
 		} catch (InputErr& e){
 			e.outputErr();
+		} catch (std::bad_alloc& e){
+//			throw MemoryErr("выделении памяти.", e);
+			std::cout << "Ошибка при выделении памяти: " << e.what();
 		}
 		std::cout << "\nВведите 1 для повторного выбора пункта меню(без очистки экрана): ";
 		std::cin >> SwitchChoose;  

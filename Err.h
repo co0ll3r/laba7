@@ -41,11 +41,14 @@ public:
 };
 
 class MemoryErr : Err {
+	std::bad_alloc bAlloc;
 public:
-    MemoryErr(std::string inp) : Err(inp) {}
+    MemoryErr(std::string inp, std::bad_alloc allocReference) : Err(inp), bAlloc(allocReference) {}
+    MemoryErr(std::string a) : Err(a){}
+//    MemoryErr(std::bad_alloc& e, std::string a) : Err(e) {}
 
     void outputErr() {
-        std::cerr << "Возникла ошибка выделения памяти! " << message << std::endl;
+        std::cerr << "Возникла ошибка выделения памяти: " << bAlloc.what() << " при " << message << std::endl;
     }
 };
 
